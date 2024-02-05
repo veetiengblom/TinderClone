@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthModal = ({ setShowModal, signUp }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmpassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
+
+  let navigate = useNavigate();
 
   const handleClick = () => {
     setShowModal(false);
@@ -17,11 +20,11 @@ const AuthModal = ({ setShowModal, signUp }) => {
       if (signUp && password !== confirmpassword) {
         setError("Passwords need to match!");
         return;
-      } 
+      }
       //Create account for user when registering first time or log user in
       if (signUp) {
         //Register user in
-        fetch("/register", {
+        fetch("/index/register", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -29,6 +32,9 @@ const AuthModal = ({ setShowModal, signUp }) => {
           body: JSON.stringify({ email, password }),
         }).then((response) => {
           console.log("response", response);
+          if (response.ok) {
+            navigate("/onboarding");
+          }
           //DO something järkevä with the response
         });
       } else {

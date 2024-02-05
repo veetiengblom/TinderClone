@@ -12,6 +12,7 @@ let userSchema = new Schema({
   genderIdentity: String,
   genderInterest: String,
   email: String,
+  password: String,
   url: String,
   about: String,
 });
