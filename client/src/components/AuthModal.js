@@ -10,13 +10,31 @@ const AuthModal = ({ setShowModal, signUp }) => {
     setShowModal(false);
   };
 
-  const handleSubmit = (e) => {
+  //Handle creating account and log in
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (signUp && password !== confirmpassword) {
         setError("Passwords need to match!");
+        return;
+      } 
+      //Create account for user when registering first time or log user in
+      if (signUp) {
+        //Register user in
+        fetch("/register", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }).then((response) => {
+          console.log("response", response);
+          //DO something järkevä with the response
+        });
+      } else {
+        //Log user in
+        console.log("logging in");
       }
-      console.log("make a post request to our database");
     } catch (error) {
       console.log(error);
     }
