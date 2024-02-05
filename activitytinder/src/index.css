@@ -122,3 +122,61 @@ nav .navBtn:disabled {
 .authModal .closeIcon {
   float: right;
 }
+
+/*---Make own styling---*/
+/*---OnBoarding Page---*/
+
+.onboarding {
+  border-top: solid 1px #777575;
+}
+
+.onboarding form {
+  display: flex;
+  justify-content: center;
+}
+
+.onboarding form section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 35%;
+}
+
+.onboarding form input {
+  padding: 15px 30px;
+  margin: 10px 0;
+  font-size: 15px;
+  border: solid 2px #dbdbdb;
+  border-radius: 10px;
+}
+
+.onboarding form input::-webkit-outer-spin-button,
+.onboarding form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.onboarding form .multipleInputContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.onboarding form .multipleInputContainer input {
+  margin-right: 10px;
+}
+
+.onboarding form .multipleInputContainer label {
+  padding: 10px;
+  border: solid 2px #4b4a4b;
+  border-radius: 10px;
+  transition: all 0.3s;
+  margin: 10px;
+}
+
+.onboarding form input[type="number"] {
+  width: 15%;
+}
+
+.onboarding form .photoContainer {
+  width: 100%;
+}
