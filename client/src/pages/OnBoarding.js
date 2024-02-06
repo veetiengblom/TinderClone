@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
+import { useCookies } from "react-cookie";
 
 const OnBoarding = () => {
+  const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   //need to add the activity
   const [formData, setFormData] = useState({
-    userID: "",
+    userId: cookies.userId,
     firstName: "",
     dobDay: "",
     dobMonth: "",
@@ -12,7 +14,6 @@ const OnBoarding = () => {
     showGender: false,
     genderIdentity: "",
     genderInterest: "",
-    email: "",
     url: "",
     about: "",
     matches: [],
@@ -184,7 +185,9 @@ const OnBoarding = () => {
               required={true}
             ></input>
             <div className="photoContainer">
-              <img src={formData.url} alt="Profile pic preview"></img>
+              {formData.url && (
+                <img src={formData.url} alt="Profile pic preview"></img>
+              )}
             </div>
           </section>
         </form>

@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const { CharacterCounter } = require("materialize-css");
 require("dotenv").config();
 var router = express.Router();
 
@@ -36,23 +37,65 @@ router.post("/register", async (req, res, next) => {
         id: generatedUserId,
         email: lowerCaseEmail,
       };
-
-      const token = jwt.sign(
+      jwt.sign(
         jwtPayload,
         process.env.SECRET,
         {
           expiresIn: 180,
         },
-        (err) => {
+        (err, token) => {
           if (err) throw err;
+          console.log("TOken!", token);
+          return res.status(201).json({
+            token: token,
+            userId: generatedUserId,
+          });
         }
       );
-      return res
-        .status(201)
-        .json({ token, userID: generatedUserId, email: lowerCaseEmail });
     }
   } catch (error) {
     console.error(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      console.log("exit");
+      return res.status(404).json({ error: "User not found" });
+    }
+    const correctPassword = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    console.log("pasword correct?", correctPassword);
+    const id = existingUser.userID;
+
+    if (existingUser && correctPassword) {
+      console.log("täällä ollaan");
+      jwt.sign(
+        { id, email },
+        process.env.SECRET,
+        {
+          expiresIn: 180,
+        },
+        (err, token) => {
+          if (err) throw err;
+          return res.status(201).json({
+            token: token,
+            userId: id,
+          });
+        }
+      );
+    } else {
+      return res.status(400).json({ error: "Invalid Credentials" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -67,6 +110,40 @@ router.get("/users", async (req, res, next) => {
   } catch (error) {
     console.error(error);
     return res.status(500);
+  }
+});
+
+router.put("/user", async (req, res, next) => {
+  try {
+    const formData = req.body.formData;
+    const existingUser = await User.findOne({ userId: formData.userId });
+    User.update(
+      { userId: existingUser.userId },
+      {
+        $set: {
+          firstName: formData.firstName,
+          dobDay: formData.dobDay,
+          dobMonth: formData.dobMonth,
+          dobYear: formData.dobYear,
+          showGender: formData.showGender,
+          genderIdentity: formData.genderIdentity,
+          genderInterest: formData.genderInterest,
+          url: formData.url,
+          about: formData.about,
+          matches: formData.matches,
+        },
+      }
+    );
+    db.users.update(
+      { userId: existingUser.userId },
+      {
+        $set: {
+          "Documents.4": "newpicture.png",
+        },
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({ error: "Error" });
   }
 });
 
