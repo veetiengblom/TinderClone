@@ -1,0 +1,169 @@
+var express = require("express");
+const mongoose = require("mongoose");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
+const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const user = require("../models/user");
+require("dotenv").config();
+var router = express.Router();
+
+/* GET home page. */
+router.post("/register", async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(403).json({ email: "email already in use" });
+    } else {
+      const generatedUserId = uuidv4();
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const lowerCaseEmail = email.toLowerCase();
+      await User.create({
+        userId: generatedUserId,
+        password: hashedPassword,
+        email: lowerCaseEmail,
+      });
+      const jwtPayload = {
+        id: generatedUserId,
+        email: lowerCaseEmail,
+      };
+      jwt.sign(
+        jwtPayload,
+        process.env.SECRET,
+        {
+          expiresIn: 180,
+        },
+        (err, token) => {
+          if (err) throw err;
+          console.log("TOken!", token);
+          return res.status(201).json({
+            token: token,
+            userId: generatedUserId,
+          });
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const correctPassword = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    const id = existingUser.userId;
+
+    if (existingUser && correctPassword) {
+      jwt.sign(
+        { id, email },
+        process.env.SECRET,
+        {
+          expiresIn: 180,
+        },
+        (err, token) => {
+          if (err) throw err;
+          return res.status(201).json({
+            token: token,
+            userId: id,
+          });
+        }
+      );
+    } else {
+      return res.status(400).json({ error: "Invalid Credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/genderedUsers", async (req, res, next) => {
+  try {
+    const gender = req.headers.params;
+    const users = await User.find({ genderIdentity: gender });
+    if (!users) {
+      return res.status(404).json({ error: "Nothing found" });
+    } else {
+      return res.json(users);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.get("/user", async (req, res) => {
+  try {
+    const userId = req.headers.params;
+    const existingUser = await User.findOne({ userId: userId });
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ existingUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.put("/user", async (req, res, next) => {
+  try {
+    const formData = req.body.formData;
+    const existingUser = await User.findOne({ userId: formData.userId });
+    const insertedUser = await User.updateOne(
+      { userId: existingUser.userId },
+      {
+        $set: {
+          firstName: formData.firstName,
+          dobDay: formData.dobDay,
+          dobMonth: formData.dobMonth,
+          dobYear: formData.dobYear,
+          showGender: formData.showGender,
+          genderIdentity: formData.genderIdentity,
+          genderInterest: formData.genderInterest,
+          url: formData.url,
+          about: formData.about,
+          matches: formData.matches,
+        },
+      }
+    );
+    res.json(insertedUser);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Error" });
+  }
+});
+
+router.put("/addmatch", async (req, res, next) => {
+  try {
+    const { userId, matchedUserId } = req.body;
+    const query = { userId: userId };
+    const updateDocument = { $push: { matches: { userId: matchedUserId } } };
+    const updatematches = await User.updateOne(query, updateDocument);
+    res.json(updatematches);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+module.exports = router;
