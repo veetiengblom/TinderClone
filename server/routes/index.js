@@ -1,6 +1,7 @@
 var express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/user");
+const Message = require("../models/message");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
@@ -96,34 +97,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get("/genderedUsers", async (req, res, next) => {
-  try {
-    const gender = req.headers.params;
-    const users = await User.find({ genderIdentity: gender });
-    if (!users) {
-      return res.status(404).json({ error: "Nothing found" });
-    } else {
-      return res.json(users);
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500);
-  }
-});
-
-router.get("/user", async (req, res) => {
-  try {
-    const userId = req.headers.params;
-    const existingUser = await User.findOne({ userId: userId });
-    if (!existingUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.json({ existingUser });
-  } catch (error) {
-    console.log(error);
-    return res.status(500);
-  }
-});
 
 router.put("/user", async (req, res, next) => {
   try {
@@ -152,6 +125,74 @@ router.put("/user", async (req, res, next) => {
     return res.status(500).json({ error: "Error" });
   }
 });
+
+
+router.get("/user", async (req, res) => {
+  try {
+    const userId = req.headers.params;
+    const existingUser = await User.findOne({ userId: userId });
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ existingUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.get("/genderedUsers", async (req, res, next) => {
+  try {
+    const gender = req.headers.params;
+    const users = await User.find({ genderIdentity: gender });
+    if (!users) {
+      return res.status(404).json({ error: "Nothing found" });
+    } else {
+      return res.json(users);
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.get("/matchedUsers", async (req, res, next) => {
+  try {
+    const userIds = JSON.parse(req.headers.params);
+    const pipeline = [
+      {
+        $match: {
+          userId: {
+            $in: userIds,
+          },
+        },
+      },
+    ];
+
+    const foundUsers = await User.aggregate(pipeline);
+    res.send(foundUsers);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/messages", async (req, res, next) => {
+  try {
+    const { userId, correspondingUserId } = req.headers.params;
+    console.log("user id", userId, "corresponding", correspondingUserId);
+
+    const userMessages = await Message.find({
+      fromUserId: userId,
+      toUserId: correspondingUserId,
+    });
+    console.log(userMessages);
+    res.send(userMessages);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 
 router.put("/addmatch", async (req, res, next) => {
   try {

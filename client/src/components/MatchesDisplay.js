@@ -1,11 +1,47 @@
-import React from 'react'
+import { useState, useEffect } from "react";
 
-const MatchesDisplay = () => {
+const MatchesDisplay = ({ matches, setClickedUser }) => {
+  const [matchedProfiles, setMachesProfiles] = useState(null);
+
+  const matchedUserId = matches.map(({ userId }) => userId);
+
+  const getMatches = async () => {
+    try {
+      const response = await fetch("/index/matchedUsers", {
+        method: "GET",
+        headers: {
+          params: JSON.stringify(matchedUserId),
+        },
+      });
+      const data = await response.json();
+      setMachesProfiles(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getMatches();
+  }, []);
+
+  console.log(matchedProfiles);
+
   return (
-    <div className='matchesDisplay'>
-      
+    <div className="matchesDisplay">
+      {matchedProfiles?.map((match, _index) => (
+        <div key={_index} className="matchCard" onClick={setClickedUser(match)}>
+          <div className="imgContainer">
+            <img
+              className="profileImg"
+              src={match?.url}
+              atl={match?.firstName + "profile"}
+            ></img>
+          </div>
+          <h3>{match?.firstName}</h3>
+        </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default MatchesDisplay
+export default MatchesDisplay;

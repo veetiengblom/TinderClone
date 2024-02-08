@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useCookies } from "react-cookie";
 import ChatContainer from "../components/ChatContainer";
-import axios from "axios";
 
 //Used React-tinder-card element from 3DJakob
 import TinderCard from "react-tinder-card";
@@ -10,9 +9,8 @@ const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [genderedUser, setGenderedUsers] = useState(null);
   const [lastDirection, setLastDirection] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingGenderedUsers, setIsLoadingGenderedUsers] = useState(true);
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
+  const [isloaded, setIsloaded] = useState(false);
 
   const userId = cookies.UserId;
 
@@ -30,15 +28,12 @@ const Dashboard = () => {
       setUser(data.existingUser);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const getGenderedUsers = async () => {
+    console.log("user", user);
     try {
-      console.log("getting gender");
-      console.log("gender inderset", user.genderInterest);
       const response = await fetch("/index/genderedUsers", {
         method: "GET",
         headers: {
@@ -47,51 +42,23 @@ const Dashboard = () => {
       });
       const data = await response.json();
       setGenderedUsers(data);
-      console.log("genderUser fecthed");
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getUser();
-    };
+    getUser();
+    setIsloaded(true);
+  }, [isloaded]);
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!isLoading) {
-        console.log("user", user);
-        await getGenderedUsers();
-        setIsLoadingGenderedUsers(false);
-      }
-    };
-
-    fetchData();
-  }, [isLoading]); // Trigger the effect when 'user' changes
-
-  useEffect(() => {
-    if (!isLoadingGenderedUsers) {
-      console.log("do nothing");
+  if (user) {
+    if (isloaded) {
+      console.log("gendered user", genderedUser);
+      getGenderedUsers();
+      setIsloaded(false);
     }
-  }, [isLoadingGenderedUsers]);
-
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     console.log("user", user);
-
-  //     getGenderedUsers();
-  //   }
-  // }, [isLoading]);
-
-  // if (user) {
-  //   console.log("genderedUser", genderedUser);
-  // }
-
-  // console.log("user", user);
+  }
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -120,38 +87,20 @@ const Dashboard = () => {
     console.log(name, "left the screen!");
   };
 
-  const filteredGenderUsers = useMemo(() => {
-    if (!genderedUser || !user) {
-      return [];
-    }
+  const matchedUsersIds = user?.matches
+    .map(({ userId }) => userId)
+    .concat(userId);
 
-    const matchedUsersIds = user.matches
-      .map(({ userId }) => userId)
-      .concat(user.userId);
-
-    return genderedUser.filter(
-      (gUser) => !matchedUsersIds.includes(gUser.userId)
-    );
-  }, [genderedUser, user]);
-
-  // const matchedUsersIds = user?.matches
-  //   ? user.matches.map(({ userId }) => userId).concat(userId)
-  //   : [];
-
-  // console.log("matches", matchedUsersIds);
-
-  // const filteredGenderUsers = genderedUser
-  //   ? genderedUser.filter(
-  //       (genderedUser) => !matchedUsersIds.includes(genderedUser.userId)
-  //     )
-  //   : [];
+  const filteredGenderUsers = genderedUser?.filter(
+    (genderedUser) => !matchedUsersIds.includes(genderedUser.userId)
+  );
 
   console.log("filter", filteredGenderUsers);
 
   return (
-    <div className="dashboard">
-      {genderedUser && (
-        <>
+    <>
+      {user && (
+        <div className="dashboard">
           <ChatContainer user={user} />
           <div className="swipeContainer">
             <div className="cardContainer">
@@ -164,7 +113,9 @@ const Dashboard = () => {
                 >
                   <div
                     className="card"
-                    style={{ backgroundImage: "url(" + genderedUser.url + ")" }}
+                    style={{
+                      backgroundImage: "url(" + genderedUser.url + ")",
+                    }}
                   >
                     <h3>{genderedUser.firstName}</h3>
                   </div>
@@ -175,9 +126,9 @@ const Dashboard = () => {
               {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
             </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
