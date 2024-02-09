@@ -1,10 +1,14 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
+import { activities } from "../utils/activities";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const OnBoarding = () => {
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
+  const [chosenActivities, setChosenActivities] = useState(
+    new Array(activities.length).fill(false)
+  );
   //need to add the activity
   const [formData, setFormData] = useState({
     userId: cookies.UserId,
@@ -17,6 +21,7 @@ const OnBoarding = () => {
     genderInterest: "",
     url: "",
     about: "",
+
     matches: [],
   });
 
@@ -32,10 +37,6 @@ const OnBoarding = () => {
         },
         body: JSON.stringify({ formData }),
       });
-      // if (response.status === 403) {
-      //   setError("Email is already in use");
-      //   return;
-      // }
       const data = await response.json();
       console.log("data", data);
       if (!response.ok) {
@@ -58,6 +59,13 @@ const OnBoarding = () => {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleOnChange = (position) => {
+    const updatedCheckedState = chosenActivities.map((item, index) =>
+      index === position ? !item : item
+    );
+    setChosenActivities(updatedCheckedState);
   };
 
   console.log(formData);
@@ -187,6 +195,24 @@ const OnBoarding = () => {
                 checked={formData.genderInterest === "everyone"}
               ></input>
               <label htmlFor="everyoneGenderInterest">Everyone</label>
+            </div>
+            <label htmlFor="activities">Choose activities you like</label>
+            <div className="multipleInputContainer">
+              {activities.map(({ name }, index) => {
+                return (
+                  <>
+                    <input
+                      key={index}
+                      type="checkbox"
+                      id={`activityCheckbox${name}`}
+                      name={name}
+                      value={name}
+                      onChange={() => handleOnChange(index)}
+                    />
+                    <label htmlFor={`activityCheckbox${name}`}>{name}</label>
+                  </>
+                );
+              })}
             </div>
 
             <label htmlFor="about">About Me</label>
