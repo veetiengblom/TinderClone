@@ -32,7 +32,6 @@ const Dashboard = () => {
   };
 
   const getGenderedUsers = async () => {
-    console.log("user", user);
     try {
       const response = await fetch("/index/genderedUsers", {
         method: "GET",
@@ -54,7 +53,6 @@ const Dashboard = () => {
 
   if (user) {
     if (isloaded) {
-      console.log("gendered user", genderedUser);
       getGenderedUsers();
       setIsloaded(false);
     }
@@ -94,8 +92,6 @@ const Dashboard = () => {
   const filteredGenderUsers = genderedUser?.filter(
     (genderedUser) => !matchedUsersIds.includes(genderedUser.userId)
   );
-
-  console.log("filter", filteredGenderUsers);
 
   return (
     <>

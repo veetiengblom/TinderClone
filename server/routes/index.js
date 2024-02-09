@@ -97,7 +97,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-
 router.put("/user", async (req, res, next) => {
   try {
     const formData = req.body.formData;
@@ -125,7 +124,6 @@ router.put("/user", async (req, res, next) => {
     return res.status(500).json({ error: "Error" });
   }
 });
-
 
 router.get("/user", async (req, res) => {
   try {
@@ -178,21 +176,17 @@ router.get("/matchedUsers", async (req, res, next) => {
 
 router.get("/messages", async (req, res, next) => {
   try {
-    const { userId, correspondingUserId } = req.headers.params;
-    console.log("user id", userId, "corresponding", correspondingUserId);
+    const { senderId, receiverId } = JSON.parse(req.headers.params);
 
     const userMessages = await Message.find({
-      fromUserId: userId,
-      toUserId: correspondingUserId,
+      fromUserId: senderId,
+      toUserId: receiverId,
     });
-    console.log(userMessages);
     res.send(userMessages);
   } catch (error) {
     console.log(error);
   }
 });
-
-
 
 router.put("/addmatch", async (req, res, next) => {
   try {
@@ -201,6 +195,22 @@ router.put("/addmatch", async (req, res, next) => {
     const updateDocument = { $push: { matches: { userId: matchedUserId } } };
     const updatematches = await User.updateOne(query, updateDocument);
     res.json(updatematches);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.post("/addMessage", async (req, res, next) => {
+  try {
+    const message = req.body.message;
+
+    await Message.create({
+      fromUserId: message.fromUserId,
+      toUserId: message.toUserId,
+      message: message.message,
+    });
+    res.send("OK");
   } catch (error) {
     console.log(error);
     return res.status(500);

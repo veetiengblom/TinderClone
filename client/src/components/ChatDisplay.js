@@ -14,7 +14,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
       const response = await fetch("/index/messages", {
         method: "GET",
         headers: {
-          params: { userId: userId, correspondingUserId: clickedUserId },
+          params: JSON.stringify({ senderId: userId, receiverId: clickedUserId }),
         },
       });
       const data = await response.json();
@@ -29,11 +29,11 @@ const ChatDisplay = ({ user, clickedUser }) => {
       const response = await fetch("/index/messages", {
         method: "GET",
         headers: {
-          params: { userId: clickedUserId, correspondingUserId: userId },
+          params: JSON.stringify({ senderId: clickedUserId, receiverId: userId }),
         },
       });
       const data = await response.json();
-      setUserMessages(data);
+      setClickedUserMessages(data);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +42,7 @@ const ChatDisplay = ({ user, clickedUser }) => {
   useEffect(() => {
     getUsersMessages();
     getClickedUsersMessages();
-  }, [userMessages, clickedUserMessages]);
+  }, []);
 
   const messages = [];
 
@@ -51,17 +51,32 @@ const ChatDisplay = ({ user, clickedUser }) => {
     formattedMessage["name"] = user?.firstName;
     formattedMessage["img"] = user?.url;
     formattedMessage["message"] = message.message;
-    formattedMessage["timestamp"] = message.timestamp;
+    formattedMessage["createdAt"] = message.createdAt;
     messages.push(formattedMessage);
   });
 
-  console.log("usermessage", userMessages);
-  console.log("formatted messages", messages);
+  clickedUserMessages?.forEach((message) => {
+    const formattedMessage = {};
+    formattedMessage["name"] = clickedUser?.firstName;
+    formattedMessage["img"] = clickedUser?.url;
+    formattedMessage["message"] = message.message;
+    formattedMessage["createdAt"] = message.createdAt;
+    messages.push(formattedMessage);
+  });
+
+  const descendingOrderMessages = messages?.sort((a, b) =>
+    a.createdAt.localeCompare(b.createdAt)
+  );
 
   return (
     <>
-      <Chat />
-      <ChatInput />
+      <Chat descendingOrderMessages={descendingOrderMessages} />
+      <ChatInput
+        user={user}
+        clickedUser={clickedUser}
+        getUsersMessages={getUsersMessages}
+        getClickedUsersMessages={getClickedUsersMessages}
+      />
     </>
   );
 };

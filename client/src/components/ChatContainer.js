@@ -4,9 +4,7 @@ import ChatDisplay from "./ChatDisplay";
 import { useState } from "react";
 
 const ChatContainer = ({ user }) => {
-  const [clickedUser, setClickedUser] = useState();
-
-  console.log("clicked user", clickedUser);
+  const [clickedUser, setClickedUser] = useState(null);
 
   return (
     <div className="chatContainer">
@@ -25,7 +23,7 @@ const ChatContainer = ({ user }) => {
           setClickedUser={setClickedUser}
         />
       )}
-      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser}/>}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
     </div>
   );
 };

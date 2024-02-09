@@ -24,12 +24,14 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
     getMatches();
   }, []);
 
-  console.log(matchedProfiles);
-
   return (
     <div className="matchesDisplay">
       {matchedProfiles?.map((match, _index) => (
-        <div key={_index} className="matchCard" onClick={setClickedUser(match)}>
+        <div
+          key={_index}
+          className="matchCard"
+          onClick={() => setClickedUser(match)}
+        >
           <div className="imgContainer">
             <img
               className="profileImg"
