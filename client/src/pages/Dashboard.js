@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useCookies } from "react-cookie";
 import ChatContainer from "../components/ChatContainer";
+import { activities } from "../utils/activities";
 
 //Used React-tinder-card element from 3DJakob
 import TinderCard from "react-tinder-card";
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const [lastDirection, setLastDirection] = useState();
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   const [isloaded, setIsloaded] = useState(false);
+  const [showActivity, setShowActivity] = useState(false);
 
   const userId = cookies.UserId;
 
@@ -33,10 +35,15 @@ const Dashboard = () => {
 
   const getGenderedUsers = async () => {
     try {
+      const userGenderInterest = user.genderInterest;
+      const userGenderIdentity = user.genderIdentity;
       const response = await fetch("/index/genderedUsers", {
         method: "GET",
         headers: {
-          params: user.genderInterest,
+          params: JSON.stringify({
+            userGenderInterest: userGenderInterest,
+            userGenderIdentity: userGenderIdentity,
+          }),
         },
       });
       const data = await response.json();
@@ -92,36 +99,70 @@ const Dashboard = () => {
   const filteredGenderUsers = genderedUser?.filter(
     (genderedUser) => !matchedUsersIds.includes(genderedUser.userId)
   );
-
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //NEED TO SETUP A WAY TO CHANGE THE VIEW
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return (
     <>
       {user && (
         <div className="dashboard">
-          <ChatContainer user={user} />
-          <div className="swipeContainer">
-            <div className="cardContainer">
-              {filteredGenderUsers?.map((genderedUser) => (
-                <TinderCard
-                  className="swipe"
-                  key={genderedUser.userId}
-                  onSwipe={(dir) => swiped(dir, genderedUser.userId)}
-                  onCardLeftScreen={() => outOfFrame(genderedUser.firstName)}
-                >
-                  <div
-                    className="card"
-                    style={{
-                      backgroundImage: "url(" + genderedUser.url + ")",
-                    }}
-                  >
-                    <h3>{genderedUser.firstName}</h3>
-                  </div>
-                </TinderCard>
-              ))}
-            </div>
-            <div className="swipeInfo">
-              {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
-            </div>
-          </div>
+          {/* <ChatContainer user={user} /> */}
+
+          <>
+            {!showActivity && (
+              <div className="swipeContainer">
+                <div className="cardContainer">
+                  {filteredGenderUsers?.map((genderedUser) => (
+                    <TinderCard
+                      className="swipe"
+                      key={genderedUser.userId}
+                      onSwipe={(dir) => swiped(dir, genderedUser.userId)}
+                      onCardLeftScreen={() =>
+                        outOfFrame(genderedUser.firstName)
+                      }
+                    >
+                      <div
+                        className="card"
+                        style={{
+                          backgroundImage: "url(" + genderedUser.url + ")",
+                        }}
+                      >
+                        <h3>{genderedUser.firstName}</h3>
+                      </div>
+                    </TinderCard>
+                  ))}
+                </div>
+                <div className="swipeInfo">
+                  {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+                </div>
+              </div>
+            )}
+            {showActivity && (
+              <div className="activityContainer">
+                <div className="cardContainer">
+                  {activities?.map((activity) => (
+                    <TinderCard
+                      className="swipe"
+                      key={activity.name}
+                      onSwipe={(dir) => swiped(dir, activity.name)}
+                      onCardLeftScreen={() =>
+                        outOfFrame(genderedUser.firstName)
+                      }
+                    >
+                      <div
+                        className="card"
+                        style={{
+                          backgroundImage: "url(" + activity.url + ")",
+                        }}
+                      >
+                        <h3>{activity.name}</h3>
+                      </div>
+                    </TinderCard>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         </div>
       )}
     </>

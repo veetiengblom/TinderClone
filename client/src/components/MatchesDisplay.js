@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 const MatchesDisplay = ({ matches, setClickedUser }) => {
   const [matchedProfiles, setMachesProfiles] = useState(null);
+  const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
-  const matchedUserId = matches.map(({ userId }) => userId);
+  const userId = cookies.UserId;
+
+  const matchedUserIds = matches.map(({ userId }) => userId);
 
   const getMatches = async () => {
     try {
       const response = await fetch("/index/matchedUsers", {
         method: "GET",
         headers: {
-          params: JSON.stringify(matchedUserId),
+          params: JSON.stringify({ matchedUserIds, userId }),
         },
       });
       const data = await response.json();
@@ -24,6 +28,7 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
     getMatches();
   }, []);
 
+  console.log("mathced users", matchedProfiles);
   return (
     <div className="matchesDisplay">
       {matchedProfiles?.map((match) => (

@@ -114,6 +114,7 @@ router.put("/user", async (req, res, next) => {
           genderInterest: formData.genderInterest,
           url: formData.url,
           about: formData.about,
+          activities: formData.activities,
           matches: formData.matches,
         },
       }
@@ -141,12 +142,24 @@ router.get("/user", async (req, res) => {
 
 router.get("/genderedUsers", async (req, res, next) => {
   try {
-    const gender = req.headers.params;
-    const users = await User.find({ genderIdentity: gender });
+    const { userGenderInterest, userGenderIdentity } = JSON.parse(
+      req.headers.params
+    );
+
+    const users =
+      userGenderInterest === "everyone"
+        ? await User.find()
+        : await User.find({ genderIdentity: userGenderInterest });
+
+    const filteredUsers = users.filter(
+      (user) =>
+        user.genderInterest === userGenderIdentity ||
+        user.genderInterest === "everyone"
+    );
     if (!users) {
       return res.status(404).json({ error: "Nothing found" });
     } else {
-      return res.json(users);
+      return res.json(filteredUsers);
     }
   } catch (error) {
     console.log(error);
@@ -156,19 +169,24 @@ router.get("/genderedUsers", async (req, res, next) => {
 
 router.get("/matchedUsers", async (req, res, next) => {
   try {
-    const userIds = JSON.parse(req.headers.params);
+    const { matchedUserIds, userId } = JSON.parse(req.headers.params);
     const pipeline = [
       {
         $match: {
           userId: {
-            $in: userIds,
+            $in: matchedUserIds,
           },
         },
       },
     ];
 
     const foundUsers = await User.aggregate(pipeline);
-    res.send(foundUsers);
+    const filteredUsers = foundUsers.filter((user) =>
+      user.matches.some((match) => match.userId === userId)
+    );
+
+    console.log("Filtered", filteredUsers);
+    res.send(filteredUsers);
   } catch (error) {
     console.log(error);
   }

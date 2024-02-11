@@ -15,6 +15,7 @@ let userSchema = new Schema({
   password: String,
   url: String,
   about: String,
+  activities: [String],
   matches: [{ userId: String }],
 });
 

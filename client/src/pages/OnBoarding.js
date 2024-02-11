@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const OnBoarding = () => {
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
-  const [chosenActivities, setChosenActivities] = useState(
-    new Array(activities.length).fill(false)
-  );
   //need to add the activity
   const [formData, setFormData] = useState({
     userId: cookies.UserId,
@@ -21,7 +18,7 @@ const OnBoarding = () => {
     genderInterest: "",
     url: "",
     about: "",
-
+    activities: [],
     matches: [],
   });
 
@@ -61,12 +58,33 @@ const OnBoarding = () => {
     }));
   };
 
-  const handleOnChange = (position) => {
-    const updatedCheckedState = chosenActivities.map((item, index) =>
-      index === position ? !item : item
-    );
-    setChosenActivities(updatedCheckedState);
+  const handleOnChange = (e) => {
+    // const updatedCheckedState = chosenActivities.map((item, index) =>
+    //   index === position ? !item : item
+    // );
+
+    const checked = e.target.checked;
+    const value = e.target.value;
+    console.log("activity", value);
+
+    if (checked) {
+      setFormData((prevState) => ({
+        ...prevState,
+        activities: [...prevState.activities, value],
+      }));
+    }
+    if (!checked) {
+      const updatedActivities = formData.activities.filter(
+        (activity) => activity !== value
+      );
+
+      setFormData((prevData) => ({
+        ...prevData,
+        activities: updatedActivities,
+      }));
+    }
   };
+  console.log(formData.activities);
 
   console.log(formData);
 
@@ -207,7 +225,7 @@ const OnBoarding = () => {
                       id={`activityCheckbox${name}`}
                       name={name}
                       value={name}
-                      onChange={() => handleOnChange(index)}
+                      onChange={handleOnChange}
                     />
                     <label htmlFor={`activityCheckbox${name}`}>{name}</label>
                   </>
@@ -228,7 +246,7 @@ const OnBoarding = () => {
             <input type="submit"></input>
           </section>
           <section>
-            <label htmlFor="about">Profile Profile</label>
+            <label htmlFor="about">Profile Picture</label>
             <input
               type="url"
               name="url"

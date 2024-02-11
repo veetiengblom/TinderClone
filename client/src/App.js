@@ -1,6 +1,7 @@
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import OnBoarding from "./pages/OnBoarding";
+import Header from "./components/Header";
 import { useCookies } from "react-cookie";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -15,13 +16,29 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        {authToken && <Route path="/dashboard" element={<Dashboard />}></Route>}
         {authToken && (
           <Route path="/onboarding" element={<OnBoarding />}></Route>
         )}
+        {authToken && (
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <Header /> <Dashboard />{" "}
+              </>
+            }
+          ></Route>
+        )}
 
-        {/* Different route for chat? */}
-        {/* <Route path="/chat" element={<ChatContainer />}></Route> */}
+        <Route
+          path="/chat"
+          element={
+            <>
+              {" "}
+              <Header /> <ChatContainer/>{" "}
+            </>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
