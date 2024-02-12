@@ -193,7 +193,8 @@ nav .navBtn:disabled {
 }
 
 .dashboard .swipeContainer,
-.dashboard .activityContainer {
+.dashboard .activityContainer,
+.dashboard .userContainer {
   width: 100%;
   display: flex;
   flex-direction: column;

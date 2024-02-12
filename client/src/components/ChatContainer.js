@@ -3,7 +3,7 @@ import ChatHeader from "./ChatHeader";
 import ChatDisplay from "./ChatDisplay";
 import { useState } from "react";
 
-const ChatContainer = ({ user }) => {
+const ChatContainer = ({ user, setActivity }) => {
   const [clickedUser, setClickedUser] = useState(null);
 
   return (
@@ -24,6 +24,7 @@ const ChatContainer = ({ user }) => {
         />
       )}
       {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
+      {clickedUser && <button className="secondaryBtn" onClick={() => {setActivity(true)}}>Choose Activity</button>}
     </div>
   );
 };

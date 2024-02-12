@@ -3,11 +3,11 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Toolbar, Button } from "@mui/material";
 
-const DashboardHeader = ({ setShowActivity }) => {
+const DashboardHeader = ({ setShowMatchPage }) => {
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   const handleClick = (value) => {
     console.log(value);
-    setShowActivity(value);
+    setShowMatchPage(value);
   };
   let navigate = useNavigate();
 

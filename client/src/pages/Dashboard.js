@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import ChatContainer from "../components/ChatContainer";
 import DashboardHeader from "../components/DashboardHeader";
-import { activities } from "../utils/activities";
+import DisplayUser from "../components/DisplayUser";
 
 //Used React-tinder-card element from 3DJakob
 import TinderCard from "react-tinder-card";
@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [lastDirection, setLastDirection] = useState();
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   const [isloaded, setIsloaded] = useState(false);
+  const [showMatcPage, setShowMatchPage] = useState(false);
   const [showActivity, setShowActivity] = useState(false);
 
   const userId = cookies.UserId;
@@ -105,12 +106,14 @@ const Dashboard = () => {
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return (
     <>
-      <DashboardHeader setShowActivity={setShowActivity} />
+      <DashboardHeader setShowMatchPage={setShowMatchPage} />
       {user && (
         <div className="dashboard">
           <>
-            {showActivity && <ChatContainer user={user} />}
-            {!showActivity && (
+            {showMatcPage && (
+              <ChatContainer user={user} setShowActivity={setShowActivity} />
+            )}
+            {!showMatcPage && (
               <div className="swipeContainer">
                 <div className="cardContainer">
                   {filteredGenderUsers?.map((genderedUser) => (
@@ -138,7 +141,7 @@ const Dashboard = () => {
                 </div>
               </div>
             )}
-            {showActivity && (
+            {/* {showActivity && (
               <div className="activityContainer">
                 <div className="cardContainer">
                   {activities?.map((activity) => (
@@ -162,6 +165,13 @@ const Dashboard = () => {
                   ))}
                 </div>
               </div>
+            )} */}
+            {showMatcPage && (
+              <DisplayUser
+                user={user}
+                showActivity={showActivity}
+                setShowActivity={setShowActivity}
+              />
             )}
           </>
         </div>
