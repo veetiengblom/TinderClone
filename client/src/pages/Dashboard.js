@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useCookies } from "react-cookie";
 import ChatContainer from "../components/ChatContainer";
+import DashboardHeader from "../components/DashboardHeader";
 import { activities } from "../utils/activities";
 
 //Used React-tinder-card element from 3DJakob
@@ -104,11 +105,11 @@ const Dashboard = () => {
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return (
     <>
+      <DashboardHeader setShowActivity={setShowActivity} />
       {user && (
         <div className="dashboard">
-          {/* <ChatContainer user={user} /> */}
-
           <>
+            {showActivity && <ChatContainer user={user} />}
             {!showActivity && (
               <div className="swipeContainer">
                 <div className="cardContainer">

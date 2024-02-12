@@ -1,11 +1,9 @@
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import OnBoarding from "./pages/OnBoarding";
-import Header from "./components/Header";
 import { useCookies } from "react-cookie";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ChatContainer from "./components/ChatContainer";
 
 const App = () => {
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
@@ -19,26 +17,7 @@ const App = () => {
         {authToken && (
           <Route path="/onboarding" element={<OnBoarding />}></Route>
         )}
-        {authToken && (
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <Header /> <Dashboard />{" "}
-              </>
-            }
-          ></Route>
-        )}
-
-        <Route
-          path="/chat"
-          element={
-            <>
-              {" "}
-              <Header /> <ChatContainer/>{" "}
-            </>
-          }
-        ></Route>
+        {authToken && <Route path="/dashboard" element={<Dashboard />}></Route>}
       </Routes>
     </BrowserRouter>
   );
