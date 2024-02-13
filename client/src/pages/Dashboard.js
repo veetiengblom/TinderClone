@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+
 import ChatContainer from "../components/ChatContainer";
 import DashboardHeader from "../components/DashboardHeader";
 import DisplayUser from "../components/DisplayUser";
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [isloaded, setIsloaded] = useState(false);
   const [showMatcPage, setShowMatchPage] = useState(false);
   const [showActivity, setShowActivity] = useState(false);
+  const [clickedUser, setClickedUser] = useState(null);
 
   const userId = cookies.UserId;
 
@@ -111,7 +113,12 @@ const Dashboard = () => {
         <div className="dashboard">
           <>
             {showMatcPage && (
-              <ChatContainer user={user} setShowActivity={setShowActivity} />
+              <ChatContainer
+                user={user}
+                setShowActivity={setShowActivity}
+                clickedUser={clickedUser}
+                setClickedUser={setClickedUser}
+              />
             )}
             {!showMatcPage && (
               <div className="swipeContainer">
@@ -141,37 +148,8 @@ const Dashboard = () => {
                 </div>
               </div>
             )}
-            {/* {showActivity && (
-              <div className="activityContainer">
-                <div className="cardContainer">
-                  {activities?.map((activity) => (
-                    <TinderCard
-                      className="swipe"
-                      key={activity.name}
-                      onSwipe={(dir) => swiped(dir, activity.name)}
-                      onCardLeftScreen={() =>
-                        outOfFrame(genderedUser.firstName)
-                      }
-                    >
-                      <div
-                        className="card"
-                        style={{
-                          backgroundImage: "url(" + activity.url + ")",
-                        }}
-                      >
-                        <h3>{activity.name}</h3>
-                      </div>
-                    </TinderCard>
-                  ))}
-                </div>
-              </div>
-            )} */}
             {showMatcPage && (
-              <DisplayUser
-                user={user}
-                showActivity={showActivity}
-                setShowActivity={setShowActivity}
-              />
+              <DisplayUser user={user} clickedUser={clickedUser} showActivity={showActivity} />
             )}
           </>
         </div>
