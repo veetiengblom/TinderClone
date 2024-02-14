@@ -50,6 +50,7 @@ const AuthModal = ({ setShowModal, signUp }) => {
 
         if (signUp) {
           navigate("/onboarding");
+          window.location.reload();
         }
         if (!signUp) {
           navigate("/dashboard");

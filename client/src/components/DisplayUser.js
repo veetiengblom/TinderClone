@@ -4,9 +4,26 @@ import TinderCard from "react-tinder-card";
 
 const DisplayUser = ({ user, clickedUser, showActivity }) => {
   const [lastDirection, setLastDirection] = useState();
-  const swiped = (direction, swipedUserId) => {
+
+  const updateActivities = async (userId, swipedActivity, clickedUserId) => {
+    try {
+      const response = await fetch("/index/addActivity", {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ userId, swipedActivity, clickedUserId }),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const swiped = (direction, swipedActivity) => {
     if (direction === "right") {
-      //updateMatches(swipedUserId);
+      updateActivities(user.userId, swipedActivity, clickedUser.userId);
     }
 
     setLastDirection(direction);
@@ -15,6 +32,18 @@ const DisplayUser = ({ user, clickedUser, showActivity }) => {
   const outOfFrame = (name) => {
     console.log(name, "left the screen!");
   };
+  const userActivities = user.activities;
+  const clickedUserActivities = clickedUser?.activities;
+
+  const matchedActivities = userActivities?.filter((x) =>
+    clickedUserActivities?.includes(x)
+  );
+
+  const filteredActivities = activities.filter((x) =>
+    matchedActivities.includes(x.name)
+  );
+
+  console.log(filteredActivities);
 
   return (
     <>
@@ -48,17 +77,18 @@ const DisplayUser = ({ user, clickedUser, showActivity }) => {
               </div>
             </TinderCard>
           </div>
+          <h3>{clickedUser.about}</h3>
         </div>
       )}
       {showActivity && (
         <div className="activityContainer">
           <div className="cardContainer">
-            {activities?.map((activity) => (
+            {filteredActivities?.map((activity) => (
               <TinderCard
                 className="swipe"
                 key={activity.name}
                 onSwipe={(dir) => swiped(dir, activity.name)}
-                onCardLeftScreen={() => outOfFrame(activity.firstName)}
+                onCardLeftScreen={() => outOfFrame(activity.name)}
               >
                 <div
                   className="card"

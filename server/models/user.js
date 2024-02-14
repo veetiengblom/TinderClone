@@ -17,6 +17,7 @@ let userSchema = new Schema({
   about: String,
   activities: [String],
   matches: [{ userId: String }],
+  machedActivities: { userId: String },
 });
 
 module.exports = mongoose.model("Users", userSchema);

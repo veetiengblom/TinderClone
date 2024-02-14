@@ -235,4 +235,30 @@ router.post("/addMessage", async (req, res, next) => {
   }
 });
 
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//Tee oma db activity matcheille
+//OKEI? OKEI!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+router.put("/addActivity", async (req, res, next) => {
+  try {
+    const { userId, swipedActivity, clickedUserId } = req.body;
+    const query = { userId: userId };
+
+    const updateDocument = {
+      $push: {
+        matches: {
+          userId: clickedUserId,
+          activities: { activity: swipedActivity },
+        },
+      },
+    };
+    const updateActivities = await User.updateOne(query, updateDocument);
+    console.log(updateActivities);
+    res.json(updateActivities);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
 module.exports = router;
