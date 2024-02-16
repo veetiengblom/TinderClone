@@ -1,9 +1,37 @@
 import { useState } from "react";
-import { activities } from "../utils/activities";
 import TinderCard from "react-tinder-card";
 
-const DisplayUser = ({ user, clickedUser, showActivity }) => {
+const DisplayUser = ({
+  user,
+  clickedUser,
+  showActivity,
+  setDisplayActivity,
+}) => {
   const [lastDirection, setLastDirection] = useState();
+  const [activities, setActivities] = useState();
+
+  const userActivities = user.activities;
+  const clickedUserActivities = clickedUser?.activities;
+  const matchedActivities = userActivities?.filter((x) =>
+    clickedUserActivities?.includes(x)
+  );
+
+  const getActivities = async () => {
+    try {
+      const response = await fetch("/index/getActivities", {
+        method: "GET",
+        headers: {
+          params: JSON.stringify(matchedActivities),
+        },
+      });
+
+      const data = await response.json();
+
+      setActivities(data.existingUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const updateActivities = async (userId, swipedActivity, clickedUserId) => {
     try {
@@ -12,10 +40,15 @@ const DisplayUser = ({ user, clickedUser, showActivity }) => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ userId, swipedActivity, clickedUserId }),
+        body: JSON.stringify({ userId, clickedUserId, swipedActivity }),
       });
       const data = await response.json();
-      console.log(data);
+      console.log(data.activities);
+      const lastActivity = data.activities.slice(-1);
+      const time = new Date();
+      const obj = { lastActivity, time };
+      console.log(obj);
+      setDisplayActivity(obj);
     } catch (error) {
       console.log(error);
     }
@@ -32,18 +65,6 @@ const DisplayUser = ({ user, clickedUser, showActivity }) => {
   const outOfFrame = (name) => {
     console.log(name, "left the screen!");
   };
-  const userActivities = user.activities;
-  const clickedUserActivities = clickedUser?.activities;
-
-  const matchedActivities = userActivities?.filter((x) =>
-    clickedUserActivities?.includes(x)
-  );
-
-  const filteredActivities = activities.filter((x) =>
-    matchedActivities.includes(x.name)
-  );
-
-  console.log(filteredActivities);
 
   return (
     <>

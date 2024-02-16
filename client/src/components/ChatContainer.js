@@ -5,15 +5,24 @@ import { useState } from "react";
 
 const ChatContainer = ({
   user,
+  showActivity,
   setShowActivity,
   clickedUser,
   setClickedUser,
+  displayActivity,
 }) => {
+  const handleClick = () => {
+    setClickedUser(null);
+    setShowActivity(false);
+  };
+  const activityBtnClick = () => {
+    showActivity ? setShowActivity(false) : setShowActivity(true);
+  };
   return (
     <div className="chatContainer">
       <ChatHeader user={user} />
       <div className="btnContainer">
-        <button className="option" onClick={() => setClickedUser(null)}>
+        <button className="option" onClick={() => handleClick()}>
           Matches
         </button>
         <button className="option" disabled={!clickedUser}>
@@ -26,15 +35,15 @@ const ChatContainer = ({
           setClickedUser={setClickedUser}
         />
       )}
-      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} displayActivity={displayActivity} />}
       {clickedUser && (
         <button
           className="secondaryBtn"
           onClick={() => {
-            setShowActivity(true);
+            activityBtnClick();
           }}
         >
-          Choose Activity
+          {showActivity ? "Cancel Activity" : "Choose Activity"}
         </button>
       )}
     </div>

@@ -1,0 +1,86 @@
+{
+  "gategory": {
+    "sports": [
+      {
+        "name": "Football",
+        "url": "https://example.com/football_image.jpg"
+      },
+      {
+        "name": "Basketball",
+        "url": "https://example.com/basketball_image.jpg"
+      },
+      {
+        "name": "Tennis",
+        "url": "https://example.com/tennis_image.jpg"
+      },
+      {
+        "name": "Swimming",
+        "url": "https://example.com/swimming_image.jpg"
+      },
+      {
+        "name": "Running",
+        "url": "https://example.com/running_image.jpg"
+      },
+      {
+        "name": "Cycling",
+        "url": "https://example.com/cycling_image.jpg"
+      },
+      {
+        "name": "Golf",
+        "url": "https://example.com/golf_image.jpg"
+      },
+      {
+        "name": "Soccer",
+        "url": "https://example.com/soccer_image.jpg"
+      },
+      {
+        "name": "Baseball",
+        "url": "https://example.com/baseball_image.jpg"
+      },
+      {
+        "name": "Volleyball",
+        "url": "https://example.com/volleyball_image.jpg"
+      },
+      {
+        "name": "Table Tennis",
+        "url": "https://example.com/table_tennis_image.jpg"
+      },
+      {
+        "name": "Hiking",
+        "url": "https://example.com/hiking_image.jpg"
+      },
+      {
+        "name": "Skiing",
+        "url": "https://example.com/skiing_image.jpg"
+      },
+      {
+        "name": "Snowboarding",
+        "url": "https://example.com/snowboarding_image.jpg"
+      },
+      {
+        "name": "Badminton",
+        "url": "https://example.com/badminton_image.jpg"
+      },
+      {
+        "name": "Martial Arts",
+        "url": "https://example.com/martial_arts_image.jpg"
+      },
+      {
+        "name": "Yoga",
+        "url": "https://example.com/yoga_image.jpg"
+      },
+      {
+        "name": "Surfing",
+        "url": "https://example.com/surfing_image.jpg"
+      },
+      {
+        "name": "Rock Climbing",
+        "url": "https://example.com/rock_climbing_image.jpg"
+      },
+      {
+        "name": "Archery",
+        "url": "https://example.com/archery_image.jpg"
+      }
+    ]
+  }
+}

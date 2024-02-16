@@ -17,6 +17,9 @@ const Dashboard = () => {
   const [showMatcPage, setShowMatchPage] = useState(false);
   const [showActivity, setShowActivity] = useState(false);
   const [clickedUser, setClickedUser] = useState(null);
+  const [displayActivity, setDisplayActivity] = useState(null);
+
+  console.log("display", displayActivity);
 
   const userId = cookies.UserId;
 
@@ -115,9 +118,11 @@ const Dashboard = () => {
             {showMatcPage && (
               <ChatContainer
                 user={user}
+                showActivity={showActivity}
                 setShowActivity={setShowActivity}
                 clickedUser={clickedUser}
                 setClickedUser={setClickedUser}
+                displayActivity={displayActivity}
               />
             )}
             {!showMatcPage && (
@@ -149,7 +154,12 @@ const Dashboard = () => {
               </div>
             )}
             {showMatcPage && (
-              <DisplayUser user={user} clickedUser={clickedUser} showActivity={showActivity} />
+              <DisplayUser
+                user={user}
+                clickedUser={clickedUser}
+                showActivity={showActivity}
+                setDisplayActivity={setDisplayActivity}
+              />
             )}
           </>
         </div>

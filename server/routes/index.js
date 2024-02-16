@@ -2,6 +2,8 @@ var express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/user");
 const Message = require("../models/message");
+const ActivityMatches = require("../models/activityMatches");
+const Activities = require("../models/activity");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
@@ -184,8 +186,6 @@ router.get("/matchedUsers", async (req, res, next) => {
     const filteredUsers = foundUsers.filter((user) =>
       user.matches.some((match) => match.userId === userId)
     );
-
-    console.log("Filtered", filteredUsers);
     res.send(filteredUsers);
   } catch (error) {
     console.log(error);
@@ -235,26 +235,36 @@ router.post("/addMessage", async (req, res, next) => {
   }
 });
 
+router.get("/getActivities", async (req, res, next) => {
+  try {
+    const gategories = JSON.parse(body.headers.params);
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //Tee oma db activity matcheille
 //OKEI? OKEI!
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 router.put("/addActivity", async (req, res, next) => {
   try {
-    const { userId, swipedActivity, clickedUserId } = req.body;
-    const query = { userId: userId };
-
-    const updateDocument = {
-      $push: {
-        matches: {
-          userId: clickedUserId,
-          activities: { activity: swipedActivity },
-        },
-      },
-    };
-    const updateActivities = await User.updateOne(query, updateDocument);
-    console.log(updateActivities);
-    res.json(updateActivities);
+    const { userId, clickedUserId, swipedActivity } = req.body;
+    const existingActivities = await ActivityMatches.findOne({
+      userIds: { $all: [userId, clickedUserId] },
+    });
+    const exists = existingActivities?.activities.includes(swipedActivity);
+    if (exists) {
+      return res.json({ message: "Activity already in database" });
+    }
+    console.log("User found", existingActivities);
+    const created = await ActivityMatches.create({
+      userIds: [userId, clickedUserId],
+      activities: swipedActivity,
+    });
+    console.log("Created", created);
+    res.json(created);
   } catch (error) {
     console.log(error);
     return res.status(500);

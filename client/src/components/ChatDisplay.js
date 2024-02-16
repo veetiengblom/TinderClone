@@ -1,8 +1,9 @@
 import Chat from "./Chat";
 import ChatInput from "./ChatInput";
 import { useState, useEffect } from "react";
+var moment = require("moment");
 
-const ChatDisplay = ({ user, clickedUser }) => {
+const ChatDisplay = ({ user, clickedUser, displayActivity }) => {
   const [userMessages, setUserMessages] = useState();
   const [clickedUserMessages, setClickedUserMessages] = useState();
 
@@ -14,7 +15,10 @@ const ChatDisplay = ({ user, clickedUser }) => {
       const response = await fetch("/index/messages", {
         method: "GET",
         headers: {
-          params: JSON.stringify({ senderId: userId, receiverId: clickedUserId }),
+          params: JSON.stringify({
+            senderId: userId,
+            receiverId: clickedUserId,
+          }),
         },
       });
       const data = await response.json();
@@ -29,7 +33,10 @@ const ChatDisplay = ({ user, clickedUser }) => {
       const response = await fetch("/index/messages", {
         method: "GET",
         headers: {
-          params: JSON.stringify({ senderId: clickedUserId, receiverId: userId }),
+          params: JSON.stringify({
+            senderId: clickedUserId,
+            receiverId: userId,
+          }),
         },
       });
       const data = await response.json();
@@ -51,16 +58,26 @@ const ChatDisplay = ({ user, clickedUser }) => {
     formattedMessage["name"] = user?.firstName;
     formattedMessage["img"] = user?.url;
     formattedMessage["message"] = message.message;
-    formattedMessage["createdAt"] = message.createdAt;
+    let formattedDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
+    formattedMessage["createdAt"] = formattedDate;
     messages.push(formattedMessage);
   });
+
+  // displayActivity?.forEach((item) => {
+  //   const formattedMessage = {};
+  //   formattedMessage["message"] = item.lastActivity;
+  //   let formattedDate = moment(item.time).format("DD.MM.YYYY HH:mm:ss");
+  //   formattedMessage["createdAt"] = formattedDate;
+  //   messages.push(formattedMessage);
+  // });
 
   clickedUserMessages?.forEach((message) => {
     const formattedMessage = {};
     formattedMessage["name"] = clickedUser?.firstName;
     formattedMessage["img"] = clickedUser?.url;
     formattedMessage["message"] = message.message;
-    formattedMessage["createdAt"] = message.createdAt;
+    let formattedDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
+    formattedMessage["createdAt"] = formattedDate;
     messages.push(formattedMessage);
   });
 
@@ -70,7 +87,10 @@ const ChatDisplay = ({ user, clickedUser }) => {
 
   return (
     <>
-      <Chat descendingOrderMessages={descendingOrderMessages} />
+      <Chat
+        descendingOrderMessages={descendingOrderMessages}
+        displayActivity={displayActivity}
+      />
       <ChatInput
         user={user}
         clickedUser={clickedUser}
