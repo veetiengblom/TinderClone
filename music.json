@@ -1,86 +1,85 @@
 {
-  "gategory": {
-    "music": [
-      {
-        "name": "Piano",
-        "url": "https://example.com/piano_image.jpg"
-      },
-      {
-        "name": "Guitar",
-        "url": "https://example.com/guitar_image.jpg"
-      },
-      {
-        "name": "Violin",
-        "url": "https://example.com/violin_image.jpg"
-      },
-      {
-        "name": "Drums",
-        "url": "https://example.com/drums_image.jpg"
-      },
-      {
-        "name": "Saxophone",
-        "url": "https://example.com/saxophone_image.jpg"
-      },
-      {
-        "name": "Flute",
-        "url": "https://example.com/flute_image.jpg"
-      },
-      {
-        "name": "Trumpet",
-        "url": "https://example.com/trumpet_image.jpg"
-      },
-      {
-        "name": "Bass Guitar",
-        "url": "https://example.com/bass_guitar_image.jpg"
-      },
-      {
-        "name": "Cello",
-        "url": "https://example.com/cello_image.jpg"
-      },
-      {
-        "name": "Clarinet",
-        "url": "https://example.com/clarinet_image.jpg"
-      },
-      {
-        "name": "Harp",
-        "url": "https://example.com/harp_image.jpg"
-      },
-      {
-        "name": "Accordion",
-        "url": "https://example.com/accordion_image.jpg"
-      },
-      {
-        "name": "Electric Guitar",
-        "url": "https://example.com/electric_guitar_image.jpg"
-      },
-      {
-        "name": "Banjo",
-        "url": "https://example.com/banjo_image.jpg"
-      },
-      {
-        "name": "DJ Mixing",
-        "url": "https://example.com/dj_mixing_image.jpg"
-      },
-      {
-        "name": "Vocal Singing",
-        "url": "https://example.com/vocal_singing_image.jpg"
-      },
-      {
-        "name": "Synthesizer",
-        "url": "https://example.com/synthesizer_image.jpg"
-      },
-      {
-        "name": "Music Production",
-        "url": "https://example.com/music_production_image.jpg"
-      },
-      {
-        "name": "Music Festivals",
-        "url": "https://example.com/music_festivals_image.jpg"
-      },
-      {
-        "name": "Opera",
-        "url": "https://example.com/opera_image.jpg"
-      }
-    ]
-  }
+  "category": "music",
+  "activity": [
+    {
+      "name": "Piano",
+      "url": "https://example.com/piano_image.jpg"
+    },
+    {
+      "name": "Guitar",
+      "url": "https://example.com/guitar_image.jpg"
+    },
+    {
+      "name": "Violin",
+      "url": "https://example.com/violin_image.jpg"
+    },
+    {
+      "name": "Drums",
+      "url": "https://example.com/drums_image.jpg"
+    },
+    {
+      "name": "Saxophone",
+      "url": "https://example.com/saxophone_image.jpg"
+    },
+    {
+      "name": "Flute",
+      "url": "https://example.com/flute_image.jpg"
+    },
+    {
+      "name": "Trumpet",
+      "url": "https://example.com/trumpet_image.jpg"
+    },
+    {
+      "name": "Bass Guitar",
+      "url": "https://example.com/bass_guitar_image.jpg"
+    },
+    {
+      "name": "Cello",
+      "url": "https://example.com/cello_image.jpg"
+    },
+    {
+      "name": "Clarinet",
+      "url": "https://example.com/clarinet_image.jpg"
+    },
+    {
+      "name": "Harp",
+      "url": "https://example.com/harp_image.jpg"
+    },
+    {
+      "name": "Accordion",
+      "url": "https://example.com/accordion_image.jpg"
+    },
+    {
+      "name": "Electric Guitar",
+      "url": "https://example.com/electric_guitar_image.jpg"
+    },
+    {
+      "name": "Banjo",
+      "url": "https://example.com/banjo_image.jpg"
+    },
+    {
+      "name": "DJ Mixing",
+      "url": "https://example.com/dj_mixing_image.jpg"
+    },
+    {
+      "name": "Vocal Singing",
+      "url": "https://example.com/vocal_singing_image.jpg"
+    },
+    {
+      "name": "Synthesizer",
+      "url": "https://example.com/synthesizer_image.jpg"
+    },
+    {
+      "name": "Music Production",
+      "url": "https://example.com/music_production_image.jpg"
+    },
+    {
+      "name": "Music Festivals",
+      "url": "https://example.com/music_festivals_image.jpg"
+    },
+    {
+      "name": "Opera",
+      "url": "https://example.com/opera_image.jpg"
+    }
+  ]
 }

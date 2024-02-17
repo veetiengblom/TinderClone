@@ -237,34 +237,79 @@ router.post("/addMessage", async (req, res, next) => {
 
 router.get("/getActivities", async (req, res, next) => {
   try {
-    const gategories = JSON.parse(body.headers.params);
-    
+    const categories = JSON.parse(req.headers.params);
+    const loweredCategories = categories.map((category) =>
+      category.toLowerCase()
+    );
+
+    const activityList = await Activities.find({
+      category: { $in: loweredCategories },
+    });
+    res.json(activityList);
   } catch (error) {
     console.log(error);
     return res.status(500);
   }
 });
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//Tee oma db activity matcheille
-//OKEI? OKEI!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 router.put("/addActivity", async (req, res, next) => {
   try {
     const { userId, clickedUserId, swipedActivity } = req.body;
-    const existingActivities = await ActivityMatches.findOne({
-      userIds: { $all: [userId, clickedUserId] },
-    });
-    const exists = existingActivities?.activities.includes(swipedActivity);
-    if (exists) {
-      return res.json({ message: "Activity already in database" });
+    const existingUser = await ActivityMatches.findOne({ userId: userId });
+    if (existingUser) {
+      const pipeline = [
+        {
+          $match: {
+            userId: userId,
+            "withUserId.userId": clickedUserId,
+          },
+        },
+      ];
+      const foundUser = await ActivityMatches.aggregate(pipeline);
+      console.log("found user", foundUser);
+      const foundActivities = foundUser[0].withUserId.activity;
+      if (foundActivities.includes(swipedActivity)) {
+        console.log("Activity exist allreay");
+        return res.json({ message: "activity already in database" });
+      }
+      await ActivityMatches.updateOne(
+        { userId: userId, "withUserId.userId": clickedUserId },
+        { $push: { "withUserId.activity": swipedActivity } }
+      );
+      console.log("activity added");
+
+      return res.json({ message: "activity added to database" });
     }
-    console.log("User found", existingActivities);
+
     const created = await ActivityMatches.create({
-      userIds: [userId, clickedUserId],
-      activities: swipedActivity,
+      userId: userId,
+      withUserId: { userId: clickedUserId, activity: swipedActivity },
     });
     console.log("Created", created);
     res.json(created);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+});
+
+router.get("/getMachedActivities", async (req, res, next) => {
+  try {
+    const { userId, clickedUserId } = JSON.parse(req.headers.params);
+    console.log(userId, clickedUserId);
+
+    const pipeline = [
+      {
+        $match: {
+          userId: userId,
+          "withUserId.userId": clickedUserId,
+        },
+      },
+    ];
+    const foundMatch = await ActivityMatches.aggregate(pipeline);
+    const foundActivities = foundMatch[0].withUserId.activity;
+    console.log("found activities!", foundActivities);
+    res.send(foundActivities);
   } catch (error) {
     console.log(error);
     return res.status(500);

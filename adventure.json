@@ -1,86 +1,85 @@
 {
-  "gategory": {
-    "adventure": [
-      {
-        "name": "Hiking",
-        "url": "https://example.com/hiking_image.jpg"
-      },
-      {
-        "name": "Rock Climbing",
-        "url": "https://example.com/rock_climbing_image.jpg"
-      },
-      {
-        "name": "Camping",
-        "url": "https://example.com/camping_image.jpg"
-      },
-      {
-        "name": "Mountain Biking",
-        "url": "https://example.com/mountain_biking_image.jpg"
-      },
-      {
-        "name": "Kayaking",
-        "url": "https://example.com/kayaking_image.jpg"
-      },
-      {
-        "name": "Skydiving",
-        "url": "https://example.com/skydiving_image.jpg"
-      },
-      {
-        "name": "Skiing",
-        "url": "https://example.com/skiing_image.jpg"
-      },
-      {
-        "name": "Snowboarding",
-        "url": "https://example.com/snowboarding_image.jpg"
-      },
-      {
-        "name": "Zip Lining",
-        "url": "https://example.com/zip_lining_image.jpg"
-      },
-      {
-        "name": "Scuba Diving",
-        "url": "https://example.com/scuba_diving_image.jpg"
-      },
-      {
-        "name": "Surfing",
-        "url": "https://example.com/surfing_image.jpg"
-      },
-      {
-        "name": "Paragliding",
-        "url": "https://example.com/paragliding_image.jpg"
-      },
-      {
-        "name": "Bungee Jumping",
-        "url": "https://example.com/bungee_jumping_image.jpg"
-      },
-      {
-        "name": "Rafting",
-        "url": "https://example.com/rafting_image.jpg"
-      },
-      {
-        "name": "Zorbing",
-        "url": "https://example.com/zorbing_image.jpg"
-      },
-      {
-        "name": "Safari",
-        "url": "https://example.com/safari_image.jpg"
-      },
-      {
-        "name": "Hot Air Ballooning",
-        "url": "https://example.com/hot_air_ballooning_image.jpg"
-      },
-      {
-        "name": "Hang Gliding",
-        "url": "https://example.com/hang_gliding_image.jpg"
-      },
-      {
-        "name": "Horseback Riding",
-        "url": "https://example.com/horseback_riding_image.jpg"
-      },
-      {
-        "name": "Off-Roading",
-        "url": "https://example.com/off_roading_image.jpg"
-      }
-    ]
-  }
+  "category": "adventure",
+  "activity": [
+    {
+      "name": "Hiking",
+      "url": "https://example.com/hiking_image.jpg"
+    },
+    {
+      "name": "Rock Climbing",
+      "url": "https://example.com/rock_climbing_image.jpg"
+    },
+    {
+      "name": "Camping",
+      "url": "https://example.com/camping_image.jpg"
+    },
+    {
+      "name": "Mountain Biking",
+      "url": "https://example.com/mountain_biking_image.jpg"
+    },
+    {
+      "name": "Kayaking",
+      "url": "https://example.com/kayaking_image.jpg"
+    },
+    {
+      "name": "Skydiving",
+      "url": "https://example.com/skydiving_image.jpg"
+    },
+    {
+      "name": "Skiing",
+      "url": "https://example.com/skiing_image.jpg"
+    },
+    {
+      "name": "Snowboarding",
+      "url": "https://example.com/snowboarding_image.jpg"
+    },
+    {
+      "name": "Zip Lining",
+      "url": "https://example.com/zip_lining_image.jpg"
+    },
+    {
+      "name": "Scuba Diving",
+      "url": "https://example.com/scuba_diving_image.jpg"
+    },
+    {
+      "name": "Surfing",
+      "url": "https://example.com/surfing_image.jpg"
+    },
+    {
+      "name": "Paragliding",
+      "url": "https://example.com/paragliding_image.jpg"
+    },
+    {
+      "name": "Bungee Jumping",
+      "url": "https://example.com/bungee_jumping_image.jpg"
+    },
+    {
+      "name": "Rafting",
+      "url": "https://example.com/rafting_image.jpg"
+    },
+    {
+      "name": "Zorbing",
+      "url": "https://example.com/zorbing_image.jpg"
+    },
+    {
+      "name": "Safari",
+      "url": "https://example.com/safari_image.jpg"
+    },
+    {
+      "name": "Hot Air Ballooning",
+      "url": "https://example.com/hot_air_ballooning_image.jpg"
+    },
+    {
+      "name": "Hang Gliding",
+      "url": "https://example.com/hang_gliding_image.jpg"
+    },
+    {
+      "name": "Horseback Riding",
+      "url": "https://example.com/horseback_riding_image.jpg"
+    },
+    {
+      "name": "Off-Roading",
+      "url": "https://example.com/off_roading_image.jpg"
+    }
+  ]
 }

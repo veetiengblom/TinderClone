@@ -1,86 +1,85 @@
 {
-  "gategory": {
-    "sports": [
-      {
-        "name": "Football",
-        "url": "https://example.com/football_image.jpg"
-      },
-      {
-        "name": "Basketball",
-        "url": "https://example.com/basketball_image.jpg"
-      },
-      {
-        "name": "Tennis",
-        "url": "https://example.com/tennis_image.jpg"
-      },
-      {
-        "name": "Swimming",
-        "url": "https://example.com/swimming_image.jpg"
-      },
-      {
-        "name": "Running",
-        "url": "https://example.com/running_image.jpg"
-      },
-      {
-        "name": "Cycling",
-        "url": "https://example.com/cycling_image.jpg"
-      },
-      {
-        "name": "Golf",
-        "url": "https://example.com/golf_image.jpg"
-      },
-      {
-        "name": "Soccer",
-        "url": "https://example.com/soccer_image.jpg"
-      },
-      {
-        "name": "Baseball",
-        "url": "https://example.com/baseball_image.jpg"
-      },
-      {
-        "name": "Volleyball",
-        "url": "https://example.com/volleyball_image.jpg"
-      },
-      {
-        "name": "Table Tennis",
-        "url": "https://example.com/table_tennis_image.jpg"
-      },
-      {
-        "name": "Hiking",
-        "url": "https://example.com/hiking_image.jpg"
-      },
-      {
-        "name": "Skiing",
-        "url": "https://example.com/skiing_image.jpg"
-      },
-      {
-        "name": "Snowboarding",
-        "url": "https://example.com/snowboarding_image.jpg"
-      },
-      {
-        "name": "Badminton",
-        "url": "https://example.com/badminton_image.jpg"
-      },
-      {
-        "name": "Martial Arts",
-        "url": "https://example.com/martial_arts_image.jpg"
-      },
-      {
-        "name": "Yoga",
-        "url": "https://example.com/yoga_image.jpg"
-      },
-      {
-        "name": "Surfing",
-        "url": "https://example.com/surfing_image.jpg"
-      },
-      {
-        "name": "Rock Climbing",
-        "url": "https://example.com/rock_climbing_image.jpg"
-      },
-      {
-        "name": "Archery",
-        "url": "https://example.com/archery_image.jpg"
-      }
-    ]
-  }
+  "category": "sports",
+  "activity": [
+    {
+      "name": "American Football",
+      "url": "https://images.unsplash.com/photo-1557174949-3b1f5b2e8fac?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Basketball",
+      "url": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Tennis",
+      "url": "https://images.unsplash.com/photo-1541744573515-478c959628a0?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Swimming",
+      "url": "https://images.unsplash.com/photo-1593055497705-59a84c5928b2?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Running",
+      "url": "https://images.unsplash.com/photo-1553969546-6f7388a7e07c?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Cycling",
+      "url": "https://images.unsplash.com/photo-1534146789009-76ed5060ec70?q=80&w=1909&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Golf",
+      "url": "https://images.unsplash.com/photo-1592919505780-303950717480?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Football",
+      "url": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Baseball",
+      "url": "https://images.unsplash.com/photo-1590502160462-58b41354f588?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Volleyball",
+      "url": "https://images.unsplash.com/photo-1521138054413-5a47d349b7af?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dm9sbGV5YmFsbHxlbnwwfDF8MHx8fDA%3D"
+    },
+    {
+      "name": "Table Tennis",
+      "url": "https://images.unsplash.com/photo-1636734909254-ff5c43927e10?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGFibGUlMjB0ZW5uaXN8ZW58MHwxfDB8fHww"
+    },
+    {
+      "name": "Hiking",
+      "url": "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGlraW5nfGVufDB8MXwwfHx8MA%3D%3D"
+    },
+    {
+      "name": "Skiing",
+      "url": "https://images.unsplash.com/photo-1565992441121-4367c2967103?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2tpaW5nfGVufDB8MXwwfHx8MA%3D%3D"
+    },
+    {
+      "name": "Snowboarding",
+      "url": "https://images.unsplash.com/photo-1580238053495-b9720401fd45?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "name": "Badminton",
+      "url": "https://images.unsplash.com/photo-1559309106-ed14040fd35d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFkbWludG9ufGVufDB8MXwwfHx8MA%3D%3D"
+    },
+    {
+      "name": "Martial Arts",
+      "url": "https://images.unsplash.com/photo-1603210185246-b1662978ea37?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFydGlhbCUyMGFydHN8ZW58MHwxfDB8fHww"
+    },
+    {
+      "name": "Yoga",
+      "url": "https://images.unsplash.com/photo-1545389336-cf090694435e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8eW9nYXxlbnwwfDF8MHx8fDA%3D"
+    },
+    {
+      "name": "Surfing",
+      "url": "https://images.unsplash.com/photo-1580331522941-58d0812c6d81?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3VyZmluZ3xlbnwwfDF8MHx8fDA%3D"
+    },
+    {
+      "name": "Rock Climbing",
+      "url": "https://images.unsplash.com/photo-1601224748193-d24f166b5c77?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9jayUyMGNsaW1iaW5nfGVufDB8MXwwfHx8MA%3D%3D"
+    },
+    {
+      "name": "Archery",
+      "url": "https://images.unsplash.com/photo-1510925758641-869d353cecc7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXJjaGVyeXxlbnwwfDF8MHx8fDA%3D"
+    }
+  ]
 }

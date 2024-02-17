@@ -19,8 +19,6 @@ const Dashboard = () => {
   const [clickedUser, setClickedUser] = useState(null);
   const [displayActivity, setDisplayActivity] = useState(null);
 
-  console.log("display", displayActivity);
-
   const userId = cookies.UserId;
 
   const getUser = async () => {

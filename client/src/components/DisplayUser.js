@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
 
 const DisplayUser = ({
@@ -26,12 +26,33 @@ const DisplayUser = ({
       });
 
       const data = await response.json();
-
-      setActivities(data.existingUser);
+      console.log("data", data);
+      setActivities(data[0].activity);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getMachedActivities = async (userId, clickedUserId) => {
+    try {
+      const response = await fetch("/index/getMachedActivities", {
+        method: "GET",
+        headers: {
+          params: JSON.stringify({ userId, clickedUserId }),
+        },
+      });
+      const data = await response.json();
+      console.log("match made in heaven", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getActivities();
+  }, [showActivity]);
+
+  console.log("Activites frontend", activities);
 
   const updateActivities = async (userId, swipedActivity, clickedUserId) => {
     try {
@@ -57,6 +78,7 @@ const DisplayUser = ({
   const swiped = (direction, swipedActivity) => {
     if (direction === "right") {
       updateActivities(user.userId, swipedActivity, clickedUser.userId);
+      getMachedActivities(user.userId, clickedUser.userId);
     }
 
     setLastDirection(direction);
@@ -104,7 +126,7 @@ const DisplayUser = ({
       {showActivity && (
         <div className="activityContainer">
           <div className="cardContainer">
-            {filteredActivities?.map((activity) => (
+            {activities?.map((activity) => (
               <TinderCard
                 className="swipe"
                 key={activity.name}

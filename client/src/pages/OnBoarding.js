@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
-import { activities } from "../utils/activities";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -216,21 +215,31 @@ const OnBoarding = () => {
             </div>
             <label htmlFor="activities">Choose activities you like</label>
             <div className="multipleInputContainer">
-              {activities.map(({ name }, index) => {
-                return (
-                  <>
-                    <input
-                      key={index}
-                      type="checkbox"
-                      id={`activityCheckbox${name}`}
-                      name={name}
-                      value={name}
-                      onChange={handleOnChange}
-                    />
-                    <label htmlFor={`activityCheckbox${name}`}>{name}</label>
-                  </>
-                );
-              })}
+              <input
+                type="checkbox"
+                id="activityCheckboxSports"
+                name="Sports"
+                value="Sports"
+                onChange={handleOnChange}
+              />
+              <label htmlFor={"activityCheckboxSports"}>Sports</label>
+
+              <input
+                type="checkbox"
+                id="activityCheckboxMusic"
+                name="Music"
+                value="Music"
+                onChange={handleOnChange}
+              />
+              <label htmlFor={"activityCheckboxMusic"}>Music</label>
+              <input
+                type="checkbox"
+                id="activityCheckboxAdventure"
+                name="Adventure"
+                value="Adventure"
+                onChange={handleOnChange}
+              />
+              <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
             </div>
 
             <label htmlFor="about">About Me</label>

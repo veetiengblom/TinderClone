@@ -28,7 +28,6 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
     getMatches();
   }, []);
 
-  console.log("mathced users", matchedProfiles);
   return (
     <div className="matchesDisplay">
       {matchedProfiles?.map((match) => (
