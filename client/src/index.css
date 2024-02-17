@@ -281,6 +281,26 @@ nav .navBtn:disabled {
   padding: 20px;
 }
 
+.chatMessageContainer#sender .imgContainer {
+  align-self: flex-end;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 10px;
+  text-align: right;
+}
+
+.chatConchatMessageContainerainer#reciever .imgContainer {
+  align-self: flex-start;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 10px;
+  text-align: left;
+}
+
 .imgContainer {
   height: 30px;
   width: 30px;
@@ -303,9 +323,34 @@ nav .navBtn:disabled {
   flex-direction: column;
 }
 
-.chatMessageContainer p {
-  float: right;
-  padding: 5px 25px 5px 25px;
+.chatMessageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chatMessageContainer#sender p {
+  align-self: flex-end;
+  margin: 5px;
+  padding: 5px 25px;
+  border: 1px solid #787676;
+  border-radius: 25px;
+  text-align: right;
+}
+
+.chatMessageContainer#reciever p {
+  align-self: flex-start;
+  margin: 5px;
+  padding: 5px 25px;
+  border: 1px solid #787676;
+  border-radius: 25px;
+  text-align: left;
+}
+
+.chatMessageContainer#category p {
+  align-self: center;
+  margin: 5px;
+  padding: 5px 25px;
   border: 1px solid #787676;
   border-radius: 25px;
 }

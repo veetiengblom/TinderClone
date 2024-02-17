@@ -1,9 +1,10 @@
+import { ListItemButton } from "@mui/material";
 import Chat from "./Chat";
 import ChatInput from "./ChatInput";
 import { useState, useEffect } from "react";
 var moment = require("moment");
 
-const ChatDisplay = ({ user, clickedUser, displayActivity }) => {
+const ChatDisplay = ({ user, clickedUser }) => {
   const [userMessages, setUserMessages] = useState();
   const [clickedUserMessages, setClickedUserMessages] = useState();
 
@@ -55,6 +56,9 @@ const ChatDisplay = ({ user, clickedUser, displayActivity }) => {
 
   userMessages?.forEach((message) => {
     const formattedMessage = {};
+    const id = message.category ? "category" : "sender";
+
+    formattedMessage["id"] = id;
     formattedMessage["name"] = user?.firstName;
     formattedMessage["img"] = user?.url;
     formattedMessage["message"] = message.message;
@@ -63,16 +67,10 @@ const ChatDisplay = ({ user, clickedUser, displayActivity }) => {
     messages.push(formattedMessage);
   });
 
-  // displayActivity?.forEach((item) => {
-  //   const formattedMessage = {};
-  //   formattedMessage["message"] = item.lastActivity;
-  //   let formattedDate = moment(item.time).format("DD.MM.YYYY HH:mm:ss");
-  //   formattedMessage["createdAt"] = formattedDate;
-  //   messages.push(formattedMessage);
-  // });
-
   clickedUserMessages?.forEach((message) => {
     const formattedMessage = {};
+    const id = message.category ? "category" : "reciever";
+    formattedMessage["id"] = "reciever";
     formattedMessage["name"] = clickedUser?.firstName;
     formattedMessage["img"] = clickedUser?.url;
     formattedMessage["message"] = message.message;
@@ -87,10 +85,7 @@ const ChatDisplay = ({ user, clickedUser, displayActivity }) => {
 
   return (
     <>
-      <Chat
-        descendingOrderMessages={descendingOrderMessages}
-        displayActivity={displayActivity}
-      />
+      <Chat descendingOrderMessages={descendingOrderMessages} />
       <ChatInput
         user={user}
         clickedUser={clickedUser}

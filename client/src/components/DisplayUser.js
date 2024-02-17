@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
+var moment = require("moment");
 
-const DisplayUser = ({
-  user,
-  clickedUser,
-  showActivity,
-  setDisplayActivity,
-}) => {
+const DisplayUser = ({ user, clickedUser, showActivity }) => {
   const [lastDirection, setLastDirection] = useState();
   const [activities, setActivities] = useState();
 
@@ -26,7 +22,6 @@ const DisplayUser = ({
       });
 
       const data = await response.json();
-      console.log("data", data);
       setActivities(data[0].activity);
     } catch (error) {
       console.log(error);
@@ -42,7 +37,8 @@ const DisplayUser = ({
         },
       });
       const data = await response.json();
-      console.log("match made in heaven", data);
+      const lastActivity = data.slice(-1).toString();
+      return lastActivity;
     } catch (error) {
       console.log(error);
     }
@@ -52,9 +48,7 @@ const DisplayUser = ({
     getActivities();
   }, [showActivity]);
 
-  console.log("Activites frontend", activities);
-
-  const updateActivities = async (userId, swipedActivity, clickedUserId) => {
+  const addActivities = async (userId, swipedActivity, clickedUserId) => {
     try {
       const response = await fetch("/index/addActivity", {
         method: "PUT",
@@ -63,22 +57,40 @@ const DisplayUser = ({
         },
         body: JSON.stringify({ userId, clickedUserId, swipedActivity }),
       });
-      const data = await response.json();
-      console.log(data.activities);
-      const lastActivity = data.activities.slice(-1);
-      const time = new Date();
-      const obj = { lastActivity, time };
-      console.log(obj);
-      setDisplayActivity(obj);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const swiped = (direction, swipedActivity) => {
+  const addMessage = async (userId, clickedUserId, text) => {
+    const message = {
+      fromUserId: userId,
+      toUserId: clickedUserId,
+      message: text,
+      category: true,
+    };
+
+    try {
+      await fetch("/index/addMessage", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const swiped = async (direction, swipedActivity) => {
     if (direction === "right") {
-      updateActivities(user.userId, swipedActivity, clickedUser.userId);
-      getMachedActivities(user.userId, clickedUser.userId);
+      await addActivities(user.userId, swipedActivity, clickedUser.userId);
+      const message = await getMachedActivities(
+        user.userId,
+        clickedUser.userId
+      );
+      addMessage(user.userId, clickedUser.userId, message);
     }
 
     setLastDirection(direction);

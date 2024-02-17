@@ -8,31 +8,37 @@ const ChatInput = ({
   getUsersMessages,
   getClickedUsersMessages,
 }) => {
-  const [textArea, setTextArea] = useState(undefined);
+  const [textArea, setTextArea] = useState("");
 
   const userId = user?.userId;
   const clickedUserId = clickedUser?.userId;
 
   const addMessage = async () => {
-    const message = {
-      fromUserId: userId,
-      toUserId: clickedUserId,
-      message: textArea,
-    };
+    const trimmedInput = textArea.trim();
 
-    try {
-      await fetch("/index/addMessage", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      });
-      getUsersMessages();
-      getClickedUsersMessages();
-      setTextArea("");
-    } catch (error) {
-      console.log(error);
+    // Check if the input is not empty
+    if (trimmedInput !== "") {
+      const message = {
+        fromUserId: userId,
+        toUserId: clickedUserId,
+        message: textArea,
+        category: false,
+      };
+
+      try {
+        await fetch("/index/addMessage", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        });
+        getUsersMessages();
+        getClickedUsersMessages();
+        setTextArea("");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -42,6 +48,7 @@ const ChatInput = ({
         value={textArea}
         onChange={(e) => setTextArea(e.target.value)}
       ></textarea>
+
       <button className="secondaryBtn" onClick={addMessage}>
         Submit
       </button>

@@ -7,6 +7,7 @@ let messageShema = new Schema(
     fromUserId: String,
     toUserId: String,
     message: String,
+    category: Boolean,
   },
   { timestamps: true }
 );

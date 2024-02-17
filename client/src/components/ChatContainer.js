@@ -9,7 +9,6 @@ const ChatContainer = ({
   setShowActivity,
   clickedUser,
   setClickedUser,
-  displayActivity,
 }) => {
   const handleClick = () => {
     setClickedUser(null);
@@ -35,7 +34,7 @@ const ChatContainer = ({
           setClickedUser={setClickedUser}
         />
       )}
-      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} displayActivity={displayActivity} />}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser}/>}
       {clickedUser && (
         <button
           className="secondaryBtn"

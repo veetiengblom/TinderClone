@@ -40,6 +40,14 @@ const DashboardHeader = ({ setShowMatchPage }) => {
             </Button>
           </div>
           <div>
+          <Button
+              color="inherit"
+              onClick={() => {
+                
+              }}
+            >
+              {"Settings"}
+            </Button>
             <Button
               color="inherit"
               onClick={() => {

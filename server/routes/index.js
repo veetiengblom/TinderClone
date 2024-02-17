@@ -227,6 +227,7 @@ router.post("/addMessage", async (req, res, next) => {
       fromUserId: message.fromUserId,
       toUserId: message.toUserId,
       message: message.message,
+      category: message.category,
     });
     res.send("OK");
   } catch (error) {
@@ -266,7 +267,6 @@ router.put("/addActivity", async (req, res, next) => {
         },
       ];
       const foundUser = await ActivityMatches.aggregate(pipeline);
-      console.log("found user", foundUser);
       const foundActivities = foundUser[0].withUserId.activity;
       if (foundActivities.includes(swipedActivity)) {
         console.log("Activity exist allreay");
@@ -296,7 +296,6 @@ router.put("/addActivity", async (req, res, next) => {
 router.get("/getMachedActivities", async (req, res, next) => {
   try {
     const { userId, clickedUserId } = JSON.parse(req.headers.params);
-    console.log(userId, clickedUserId);
 
     const pipeline = [
       {
@@ -308,8 +307,22 @@ router.get("/getMachedActivities", async (req, res, next) => {
     ];
     const foundMatch = await ActivityMatches.aggregate(pipeline);
     const foundActivities = foundMatch[0].withUserId.activity;
-    console.log("found activities!", foundActivities);
-    res.send(foundActivities);
+    const pipeline2 = [
+      {
+        $match: {
+          userId: clickedUserId,
+          "withUserId.userId": userId,
+        },
+      },
+    ];
+    const foundMatch2 = await ActivityMatches.aggregate(pipeline2);
+    const foundActivities2 = foundMatch2[0].withUserId.activity;
+    const matchedActivities = foundActivities.filter((x) =>
+      foundActivities2.includes(x)
+    );
+    console.log("matches", matchedActivities);
+
+    res.send(matchedActivities);
   } catch (error) {
     console.log(error);
     return res.status(500);
