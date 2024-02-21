@@ -4,7 +4,10 @@ import ChatInput from "./ChatInput";
 import { useState, useEffect } from "react";
 var moment = require("moment");
 
-const ChatDisplay = ({ user, clickedUser }) => {
+const ChatDisplay = ({
+  user,
+  clickedUser,
+}) => {
   const [userMessages, setUserMessages] = useState();
   const [clickedUserMessages, setClickedUserMessages] = useState();
 

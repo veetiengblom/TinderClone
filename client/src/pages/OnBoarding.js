@@ -58,10 +58,6 @@ const OnBoarding = () => {
   };
 
   const handleOnChange = (e) => {
-    // const updatedCheckedState = chosenActivities.map((item, index) =>
-    //   index === position ? !item : item
-    // );
-
     const checked = e.target.checked;
     const value = e.target.value;
     console.log("activity", value);

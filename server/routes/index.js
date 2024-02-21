@@ -212,7 +212,18 @@ router.put("/addmatch", async (req, res, next) => {
     const query = { userId: userId };
     const updateDocument = { $push: { matches: { userId: matchedUserId } } };
     const updatematches = await User.updateOne(query, updateDocument);
-    res.json(updatematches);
+    const pipeline = [
+      {
+        $match: {
+          userId: {
+            matchedUserId,
+          },
+        },
+      },
+    ];
+
+    const isMatch = await User.aggregate(pipeline)
+    res.send()
   } catch (error) {
     console.log(error);
     return res.status(500);

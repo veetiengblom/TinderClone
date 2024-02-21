@@ -1,73 +1,20 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-import ChatContainer from "../components/ChatContainer";
-import DashboardHeader from "../components/DashboardHeader";
-import DisplayUser from "../components/DisplayUser";
-
 //Used React-tinder-card element from 3DJakob
 import TinderCard from "react-tinder-card";
+import { useUser } from "../hooks/useUser";
+import { useGenderedUsers } from "../hooks/useGenderedUsers";
 
-const Dashboard = () => {
-  const [user, setUser] = useState(null);
-  const [genderedUser, setGenderedUsers] = useState(null);
+const Dashboard = ({}) => {
+  // const [genderedUser, setGenderedUsers] = useState(null);
   const [lastDirection, setLastDirection] = useState();
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
-  const [isloaded, setIsloaded] = useState(false);
-  const [showMatcPage, setShowMatchPage] = useState(false);
-  const [showActivity, setShowActivity] = useState(false);
-  const [clickedUser, setClickedUser] = useState(null);
+  const [userIteration, setUserIteration] = useState(0);
 
   const userId = cookies.UserId;
-
-  const getUser = async () => {
-    try {
-      const response = await fetch("/index/user", {
-        method: "GET",
-        headers: {
-          params: userId,
-        },
-      });
-
-      const data = await response.json();
-
-      setUser(data.existingUser);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getGenderedUsers = async () => {
-    try {
-      const userGenderInterest = user.genderInterest;
-      const userGenderIdentity = user.genderIdentity;
-      const response = await fetch("/index/genderedUsers", {
-        method: "GET",
-        headers: {
-          params: JSON.stringify({
-            userGenderInterest: userGenderInterest,
-            userGenderIdentity: userGenderIdentity,
-          }),
-        },
-      });
-      const data = await response.json();
-      setGenderedUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-    setIsloaded(true);
-  }, [isloaded]);
-
-  if (user) {
-    if (isloaded) {
-      getGenderedUsers();
-      setIsloaded(false);
-    }
-  }
+  const { user } = useUser(userId, userIteration);
+  const genderedUsers = useGenderedUsers(user);
 
   const updateMatches = async (matchedUserId) => {
     try {
@@ -78,7 +25,7 @@ const Dashboard = () => {
         },
         body: JSON.stringify({ userId, matchedUserId }),
       });
-      getUser();
+      setUserIteration(userIteration++);
     } catch (error) {
       console.log(error);
     }
@@ -100,65 +47,42 @@ const Dashboard = () => {
     .map(({ userId }) => userId)
     .concat(userId);
 
-  const filteredGenderUsers = genderedUser?.filter(
-    (genderedUser) => !matchedUsersIds.includes(genderedUser.userId)
+  const filteredGenderUsers = genderedUsers?.filter(
+    (genderedUsers) => !matchedUsersIds.includes(genderedUsers.userId)
   );
 
   return (
     <>
-      <DashboardHeader setShowMatchPage={setShowMatchPage} />
       {user && (
         <div className="dashboard">
-          <>
-            {showMatcPage && (
-              <ChatContainer
-                user={user}
-                showActivity={showActivity}
-                setShowActivity={setShowActivity}
-                clickedUser={clickedUser}
-                setClickedUser={setClickedUser}
-              />
-            )}
-            {!showMatcPage && (
-              <div className="swipeContainer">
-                <div className="cardContainer">
-                  {filteredGenderUsers?.length > 0 ? (
-                    filteredGenderUsers.map((genderedUser) => (
-                      <TinderCard
-                        className="swipe"
-                        key={genderedUser.userId}
-                        onSwipe={(dir) => swiped(dir, genderedUser.userId)}
-                        onCardLeftScreen={() =>
-                          outOfFrame(genderedUser.firstName)
-                        }
-                      >
-                        <div
-                          className="card"
-                          style={{
-                            backgroundImage: "url(" + genderedUser.url + ")",
-                          }}
-                        >
-                          <h3>{genderedUser.firstName}</h3>
-                        </div>
-                      </TinderCard>
-                    ))
-                  ) : (
-                    <h1>No more users to show</h1>
-                  )}
-                </div>
-                <div className="swipeInfo">
-                  {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
-                </div>
-              </div>
-            )}
-            {showMatcPage && (
-              <DisplayUser
-                user={user}
-                clickedUser={clickedUser}
-                showActivity={showActivity}
-              />
-            )}
-          </>
+          <div className="swipeContainer">
+            <div className="cardContainer">
+              {filteredGenderUsers?.length > 0 ? (
+                filteredGenderUsers.map((genderedUsers) => (
+                  <TinderCard
+                    className="swipe"
+                    key={genderedUsers.userId}
+                    onSwipe={(dir) => swiped(dir, genderedUsers.userId)}
+                    onCardLeftScreen={() => outOfFrame(genderedUsers.firstName)}
+                  >
+                    <div
+                      className="card"
+                      style={{
+                        backgroundImage: "url(" + genderedUsers.url + ")",
+                      }}
+                    >
+                      <h3>{genderedUsers.firstName}</h3>
+                    </div>
+                  </TinderCard>
+                ))
+              ) : (
+                <h1>No more users to show</h1>
+              )}
+            </div>
+            <div className="swipeInfo">
+              {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+            </div>
+          </div>
         </div>
       )}
     </>

@@ -1,6 +1,9 @@
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import OnBoarding from "./pages/OnBoarding";
+import Settings from "./pages/Settings";
+import DashboardHeader from "./components/DashboardHeader";
+import Matches from "./pages/Matches";
 import { useCookies } from "react-cookie";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -17,7 +20,41 @@ const App = () => {
         {authToken && (
           <Route path="/onboarding" element={<OnBoarding />}></Route>
         )}
-        {authToken && <Route path="/dashboard" element={<Dashboard />}></Route>}
+        {authToken && (
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                {" "}
+                <DashboardHeader />
+                <Dashboard />{" "}
+              </>
+            }
+          ></Route>
+        )}
+        {authToken && (
+          <Route
+            path="/matches"
+            element={
+              <>
+                <DashboardHeader />
+                <Matches />{" "}
+              </>
+            }
+          ></Route>
+        )}
+        {authToken && (
+          <Route
+            path="/settings"
+            element={
+              <>
+                {" "}
+                <DashboardHeader />
+                <Settings />{" "}
+              </>
+            }
+          ></Route>
+        )}
       </Routes>
     </BrowserRouter>
   );
