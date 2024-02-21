@@ -16,8 +16,6 @@ const Matches = ({}) => {
   const userId = cookies.UserId;
   const { user } = useUser(userId);
 
-  console.log(user);
-
   const userActivities = user?.activities;
   const clickedUserActivities = clickedUser?.activities;
   const matchedActivities = userActivities?.filter((x) =>

@@ -22,11 +22,15 @@ const DashboardHeader = ({ setShowMatchPage, setUser }) => {
     navigate(0);
   };
 
-
   return (
     <div id="pgHeader">
       <AppBar position="static">
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        <Toolbar className="toolBar"
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div>
             <Button
               color="inherit"

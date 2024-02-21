@@ -7,18 +7,10 @@ const SettingsModal = ({ setShowModal }) => {
   const [password, setPassword] = useState(null);
   const [confirmpassword, setConfirmPassword] = useState(null);
   const [formData, setFormData] = useState({
-    userId: cookies.UserId,
-    firstName: "",
-    dobDay: "",
-    dobMonth: "",
-    dobYear: "",
     showGender: false,
-    genderIdentity: "",
     genderInterest: "",
     url: "",
     about: "",
-    activities: [],
-    matches: [],
   });
 
   const handleClick = () => {
@@ -27,6 +19,7 @@ const SettingsModal = ({ setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
   };
 
   const handleChange = (e) => {
@@ -65,8 +58,8 @@ const SettingsModal = ({ setShowModal }) => {
       <div className="closeIcon" onClick={handleClick}>
         ✖
       </div>
-      <h2>Change User Profile</h2>
-      {/* <form onSubmit={handleSubmit}>
+      <h2>Update Profile</h2>
+      <form onSubmit={handleSubmit}>
         <section>
           <label>Show Me</label>
           <div className="multipleInputContainer">
@@ -107,18 +100,6 @@ const SettingsModal = ({ setShowModal }) => {
             ></input>
             <label htmlFor="everyoneGenderInterest">Everyone</label>
           </div>
-          <div className="multipleInputContainer">
-            <label htmlFor="about">About Me</label>
-            <input
-              id="about"
-              type="text"
-              name="about"
-              required={true}
-              placeholder="I like long walks..."
-              value={formData.about}
-              onChange={handleChange}
-            ></input>
-          </div>
           <label htmlFor="activities">Choose activities you like</label>
           <div className="multipleInputContainer">
             <input
@@ -147,6 +128,18 @@ const SettingsModal = ({ setShowModal }) => {
             />
             <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
           </div>
+          <div className="multipleInputContainer">
+            <label htmlFor="about">About Me</label>
+            <input
+              id="about"
+              type="text"
+              name="about"
+              required={true}
+              placeholder="I like long walks..."
+              value={formData.about}
+              onChange={handleChange}
+            ></input>
+          </div>
         </section>
         <section>
           <label htmlFor="about">Profile Picture</label>
@@ -168,7 +161,7 @@ const SettingsModal = ({ setShowModal }) => {
           </div>
         </section>
         <input className="secondaryBtn" type="submit" />
-      </form> */}
+      </form>
     </div>
   );
 };

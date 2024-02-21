@@ -7,7 +7,6 @@ import { useUser } from "../hooks/useUser";
 import { useGenderedUsers } from "../hooks/useGenderedUsers";
 
 const Dashboard = ({}) => {
-  // const [genderedUser, setGenderedUsers] = useState(null);
   const [lastDirection, setLastDirection] = useState();
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   const [userIteration, setUserIteration] = useState(0);

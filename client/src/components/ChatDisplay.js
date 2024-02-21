@@ -4,10 +4,7 @@ import ChatInput from "./ChatInput";
 import { useState, useEffect } from "react";
 var moment = require("moment");
 
-const ChatDisplay = ({
-  user,
-  clickedUser,
-}) => {
+const ChatDisplay = ({ user, clickedUser }) => {
   const [userMessages, setUserMessages] = useState();
   const [clickedUserMessages, setClickedUserMessages] = useState();
 
@@ -65,25 +62,29 @@ const ChatDisplay = ({
     formattedMessage["name"] = user?.firstName;
     formattedMessage["img"] = user?.url;
     formattedMessage["message"] = message.message;
-    let formattedDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
+    let formattedDate = moment(message.createdAt).format("HH:mm DD.MM.YYYY");
+    let compareDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
     formattedMessage["createdAt"] = formattedDate;
+    formattedMessage["compareDate"] = compareDate;
     messages.push(formattedMessage);
   });
 
   clickedUserMessages?.forEach((message) => {
     const formattedMessage = {};
     const id = message.category ? "category" : "reciever";
-    formattedMessage["id"] = "reciever";
+    formattedMessage["id"] = id;
     formattedMessage["name"] = clickedUser?.firstName;
     formattedMessage["img"] = clickedUser?.url;
     formattedMessage["message"] = message.message;
-    let formattedDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
+    let formattedDate = moment(message.createdAt).format("HH:mm DD.MM.YYYY");
+    let compareDate = moment(message.createdAt).format("DD.MM.YYYY HH:mm:ss");
     formattedMessage["createdAt"] = formattedDate;
+    formattedMessage["compareDate"] = compareDate;
     messages.push(formattedMessage);
   });
 
   const descendingOrderMessages = messages?.sort((a, b) =>
-    a.createdAt.localeCompare(b.createdAt)
+    a.compareDate.localeCompare(b.compareDate)
   );
 
   return (

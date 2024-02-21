@@ -222,8 +222,8 @@ router.put("/addmatch", async (req, res, next) => {
       },
     ];
 
-    const isMatch = await User.aggregate(pipeline)
-    res.send()
+    const isMatch = await User.aggregate(pipeline);
+    res.send();
   } catch (error) {
     console.log(error);
     return res.status(500);
@@ -285,7 +285,11 @@ router.put("/addActivity", async (req, res, next) => {
       }
       await ActivityMatches.updateOne(
         { userId: userId, "withUserId.userId": clickedUserId },
-        { $push: { "withUserId.activity": swipedActivity } }
+        {
+          $push: {
+            "withUserId.activity": swipedActivity,
+          },
+        }
       );
       console.log("activity added");
 
@@ -294,7 +298,10 @@ router.put("/addActivity", async (req, res, next) => {
 
     const created = await ActivityMatches.create({
       userId: userId,
-      withUserId: { userId: clickedUserId, activity: swipedActivity },
+      withUserId: {
+        userId: clickedUserId,
+        activity: swipedActivity,
+      },
     });
     console.log("Created", created);
     res.json(created);

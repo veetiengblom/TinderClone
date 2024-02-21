@@ -14,31 +14,37 @@ body {
   color: #ffff;
   text-transform: uppercase;
   font-size: 15px;
-  background: linear-gradient(45deg, #00ffff, #581845);
+  background: linear-gradient(45deg, #395886, #d5deef);
   padding: 12px 30px;
   border-radius: 30px;
   border: none;
 }
 
 .primaryBtn:hover {
-  background: linear-gradient(45deg, #581845, #00ffff);
+  background: linear-gradient(45deg, #d5deef, #395886);
 }
 
 .secondaryBtn {
-  color: #777575;
+  width: 95%;
   background-color: #ffff;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   text-transform: uppercase;
   padding: 12px 30px;
   border-radius: 30px;
-  border: solid 2px #777575;
+  border: solid 2px #111111;
   margin: 6px;
 }
 
 .secondaryBtn:hover {
   color: #4b4a4b;
   border: solid 2px #4b4a4b;
+}
+
+/*---DashboardHeader---*/
+
+.toolBar {
+  background: linear-gradient(45deg, #d5deef, #395886);
 }
 
 /*---Navbar---*/
@@ -79,11 +85,7 @@ nav .navBtn:disabled {
   width: 100vw;
   height: 100vh;
   position: fixed;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0) 100%
-  );
+  background: linear-gradient(to bottom, #f0f3fa 0%, #395886 100%);
 }
 
 .home {
@@ -102,7 +104,7 @@ nav .navBtn:disabled {
   margin-right: auto;
   max-width: 360px;
   height: 600px;
-  background-color: #ffff;
+  background-color: #f0f3fa;
   border-radius: 10px;
   padding: 40px;
 }
@@ -123,11 +125,74 @@ nav .navBtn:disabled {
   float: right;
 }
 
-/*---Make own styling---*/
+/*---Settings modal---*/
+
+.settingsModal {
+  top: 175px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 360px;
+  height: 600px;
+  background-color: #f0f3fa;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.settingsModal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.settingsModal form section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 35%;
+}
+
+.settingsModal form input {
+  padding: 15px 30px;
+  margin: 10px 0;
+  font-size: 15px;
+  border: solid 2px #395886;
+  border-radius: 10px;
+}
+
+.settingsModal form input::-webkit-outer-spin-button,
+.settingsModal form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.settingsModal form .multipleInputContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.settingsModal form .multipleInputContainer input {
+  margin-right: 10px;
+}
+
+.settingsModal form .multipleInputContainer label {
+  padding: 10px;
+  border: solid 2px #395886;
+  border-radius: 10px;
+  transition: all 0.3s;
+  margin: 10px;
+}
+
+.settingsModal .closeIcon {
+  float: right;
+}
+
 /*---OnBoarding Page---*/
 
 .onboarding {
-  border-top: solid 1px #777575;
+  border-top: solid 1px #b1c9ef;
 }
 
 .onboarding form {
@@ -146,7 +211,7 @@ nav .navBtn:disabled {
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
-  border: solid 2px #dbdbdb;
+  border: solid 2px #395886;
   border-radius: 10px;
 }
 
@@ -167,7 +232,7 @@ nav .navBtn:disabled {
 
 .onboarding form .multipleInputContainer label {
   padding: 10px;
-  border: solid 2px #4b4a4b;
+  border: solid 2px #395886;
   border-radius: 10px;
   transition: all 0.3s;
   margin: 10px;
@@ -214,10 +279,9 @@ nav .navBtn:disabled {
 
 .card {
   position: relative;
-  background-color: #fff;
+  background-color: #f0f3fa;
   width: 400px;
   height: 650px;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -256,7 +320,6 @@ nav .navBtn:disabled {
   background-color: #fff;
   width: 400px;
   height: 650px;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -269,15 +332,15 @@ nav .navBtn:disabled {
   width: 30%;
   text-align: left;
   top: 50%;
-  border: solid 1px #787676;
+  border-top: none;
+  border-right: solid 1px #f0f3fa;
+}
+.chatContainer .activityBtn {
+  border: 1px solid #111111;
 }
 
 .chatContainer .chatContainerHeader {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0) 100%
-  );
+  background: linear-gradient(to right, #f0f3fa 0%, #395886 100%);
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -288,7 +351,7 @@ nav .navBtn:disabled {
   display: flex;
   align-items: center;
   margin: 5px;
-  border: 1px solid #787676;
+  border: 1px solid #111111;
   border-radius: 25px;
 }
 
@@ -299,8 +362,7 @@ nav .navBtn:disabled {
 
 .chatContainer .option {
   border: none;
-  border-bottom: solid 4px #581845;
-  font-size: 20px;
+  border-bottom: solid 4px #638ecb;
   margin: 5px;
   padding: 10px;
 }
@@ -310,26 +372,6 @@ nav .navBtn:disabled {
   display: flex;
   align-items: center;
   padding: 20px;
-}
-
-.chatMessageContainer#sender .imgContainer {
-  align-self: flex-end;
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  overflow: hidden;
-  margin: 10px;
-  text-align: right;
-}
-
-.chatConchatMessageContainerainer#reciever .imgContainer {
-  align-self: flex-start;
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  overflow: hidden;
-  margin: 10px;
-  text-align: left;
 }
 
 .imgContainer {
@@ -344,44 +386,90 @@ nav .navBtn:disabled {
   width: 100%;
 }
 
-.chatDisplay {
-  height: 60vh;
-  overflow-y: auto;
-}
-
 .chatInput {
   display: flex;
   flex-direction: column;
 }
 
+.chatDisplay {
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  height: 60vh;
+  overflow-y: auto;
+}
+
 .chatMessageContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  border-radius: 25px;
+  position: relative;
 }
 
-.chatMessageContainer#sender p {
+.chatMessageContainer#sender .profileImg {
   align-self: flex-end;
-  margin: 5px;
-  padding: 5px 25px;
-  border: 1px solid #787676;
-  border-radius: 25px;
-  text-align: right;
+  object-fit: cover;
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  right: 15px;
+  top: 7px;
+  z-index: 2;
 }
 
-.chatMessageContainer#reciever p {
+.chatMessageContainer#reciever .profileImg {
   align-self: flex-start;
-  margin: 5px;
-  padding: 5px 25px;
-  border: 1px solid #787676;
-  border-radius: 25px;
-  text-align: left;
+  object-fit: cover;
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  left: 15px;
+  top: 7px;
+  z-index: 2;
 }
 
-.chatMessageContainer#category p {
+.chatMessageContainer .message {
+  background-color: #f0f3fa;
+  border-radius: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.chatMessageContainer#sender .timestamp {
+  align-self: flex-end;
+  text-align: right;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.chatMessageContainer#reciever .timestamp {
+  align-self: flex-start;
+  text-align: right;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.chatMessageContainer#sender .message {
+  align-self: flex-end;
+  text-align: right;
+  padding: 15px 70px 15px 20px;
+  margin: 0;
+}
+
+.chatMessageContainer#reciever .message {
+  align-self: flex-start;
+  text-align: left;
+  padding: 15px 20px 15px 70px;
+  margin: 0;
+}
+.chatMessageContainer#category .message {
   align-self: center;
-  margin: 5px;
-  padding: 5px 25px;
-  border: 1px solid #787676;
-  border-radius: 25px;
+  padding: 15px 20px 15px 20px;
 }

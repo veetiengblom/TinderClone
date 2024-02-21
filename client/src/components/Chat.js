@@ -4,18 +4,27 @@ const Chat = ({ descendingOrderMessages }) => {
   return (
     <div className="chatDisplay">
       {descendingOrderMessages.map((message, _index) => (
-        <div key={_index} className="chatMessageContainer" id={message.id}>
+        <>
           {message.id !== "category" && (
-            <div className="imgContainer">
+            <div key={_index} className="chatMessageContainer" id={message.id}>
               <img
                 className="profileImg"
                 src={message.img}
                 alt={message.name + "profile"}
               />
+              <p className="message">{message.message}</p>
+              <p className="timestamp">{message.createdAt}</p>
             </div>
           )}
-          <p>{message.message}</p>
-        </div>
+
+          {message.id === "category" && (
+            <div key={_index} className="chatMessageContainer" id={message.id}>
+              <p className="message">
+                {"Matched Activity: " + message.message}
+              </p>
+            </div>
+          )}
+        </>
       ))}
     </div>
   );

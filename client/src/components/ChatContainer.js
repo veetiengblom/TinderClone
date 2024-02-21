@@ -2,6 +2,7 @@ import MatchesDisplay from "./MatchesDisplay";
 import ChatHeader from "./ChatHeader";
 import ChatDisplay from "./ChatDisplay";
 import { useState } from "react";
+import { Button } from "@mui/material";
 
 const ChatContainer = ({
   user,
@@ -21,12 +22,12 @@ const ChatContainer = ({
     <div className="chatContainer">
       <ChatHeader user={user} />
       <div className="btnContainer">
-        <button className="option" onClick={() => handleClick()}>
+        <Button className="option" onClick={() => handleClick()}>
           Matches
-        </button>
-        <button className="option" disabled={!clickedUser}>
+        </Button>
+        <Button className="option" disabled={!clickedUser}>
           Chat
-        </button>
+        </Button>
       </div>
       {!clickedUser && (
         <MatchesDisplay
@@ -34,7 +35,7 @@ const ChatContainer = ({
           setClickedUser={setClickedUser}
         />
       )}
-      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser}/>}
+      {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser} />}
       {clickedUser && (
         <button
           className="secondaryBtn"
