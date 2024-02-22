@@ -7,10 +7,12 @@ const SettingsModal = ({ setShowModal }) => {
   const [password, setPassword] = useState(null);
   const [confirmpassword, setConfirmPassword] = useState(null);
   const [formData, setFormData] = useState({
+    userId: cookies.UserId,
     showGender: false,
     genderInterest: "",
     url: "",
     about: "",
+    activities: [],
   });
 
   const handleClick = () => {
@@ -19,39 +21,63 @@ const SettingsModal = ({ setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch("/index/updateUser", {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
+      const data = await response.json();
+      console.log("data", data);
+      if (!response.ok) {
+        return console.error("response error", response);
+      }
+      if (response.status === 200) {
+        console.log("data updated");
 
+        setShowModal(false);
+        window.location.reload();
+      }
+    } catch (error) {
+      return console.log(error);
+    }
   };
 
   const handleChange = (e) => {
-    // const value =
-    //   e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    // const name = e.target.name;
-    // setFormData((prevState) => ({
-    //   ...prevState,
-    //   [name]: value,
-    // }));
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    const name = e.target.name;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleOnChange = (e) => {
-    // const checked = e.target.checked;
-    // const value = e.target.value;
-    // console.log("activity", value);
-    // if (checked) {
-    //   setFormData((prevState) => ({
-    //     ...prevState,
-    //     activities: [...prevState.activities, value],
-    //   }));
-    // }
-    // if (!checked) {
-    //   const updatedActivities = formData.activities.filter(
-    //     (activity) => activity !== value
-    //   );
-    //   setFormData((prevData) => ({
-    //     ...prevData,
-    //     activities: updatedActivities,
-    //   }));
-    // }
+    const checked = e.target.checked;
+    const value = e.target.value;
+    console.log("activity", value);
+
+    if (checked) {
+      setFormData((prevState) => ({
+        ...prevState,
+        activities: [...prevState.activities, value],
+      }));
+    }
+    if (!checked) {
+      const updatedActivities = formData.activities.filter(
+        (activity) => activity !== value
+      );
+
+      setFormData((prevData) => ({
+        ...prevData,
+        activities: updatedActivities,
+      }));
+    }
   };
+  console.log("form", formData);
 
   return (
     <div className="settingsModal">
@@ -61,6 +87,14 @@ const SettingsModal = ({ setShowModal }) => {
       <h2>Update Profile</h2>
       <form onSubmit={handleSubmit}>
         <section>
+          <label htmlFor="showGender">Show gender on my profile</label>
+          <input
+            id="showGender"
+            type="checkbox"
+            name="showGender"
+            onChange={handleChange}
+            checked={formData.showGender}
+          ></input>
           <label>Show Me</label>
           <div className="multipleInputContainer">
             <input
@@ -128,8 +162,8 @@ const SettingsModal = ({ setShowModal }) => {
             />
             <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
           </div>
+          <label htmlFor="about">About Me</label>
           <div className="multipleInputContainer">
-            <label htmlFor="about">About Me</label>
             <input
               id="about"
               type="text"

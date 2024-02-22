@@ -100,7 +100,7 @@ const OnBoarding = () => {
               value={formData.firstName}
               onChange={handleChange}
             ></input>
-            <label>Birthday</label>
+            <label htmlFor="dobDay">Birthday</label>
             <div className="multipleInputContainer">
               <input
                 id="dobDay"

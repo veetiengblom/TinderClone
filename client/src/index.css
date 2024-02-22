@@ -128,15 +128,15 @@ nav .navBtn:disabled {
 /*---Settings modal---*/
 
 .settingsModal {
-  top: 175px;
-  position: absolute;
+  position: relative;
   left: 0;
   right: 0;
   top: 50px;
   margin-left: auto;
   margin-right: auto;
   max-width: 360px;
-  height: 600px;
+  height: auto;
+  min-height: 600px;
   background-color: #f0f3fa;
   border-radius: 10px;
   padding: 40px;
@@ -154,12 +154,34 @@ nav .navBtn:disabled {
   width: 35%;
 }
 
+.settingsModal form section label {
+  align-items: center;
+}
+
+.settingsModal form .multipleInputContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.settingsModal form .multipleInputContainer input[type="radio"],
+.settingsModal form .multipleInputContainer input[type="checkbox"] {
+  display: none;
+}
 .settingsModal form input {
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
-  border: solid 2px #395886;
+  border: solid 2px #b1c9ef;
   border-radius: 10px;
+}
+
+.settingsModal form .multipleInputContainer input[type="radio"]:checked + label,
+.settingsModal
+  form
+  .multipleInputContainer
+  input[type="checkbox"]:checked
+  + label {
+  border: 2px solid #395886;
 }
 
 .settingsModal form input::-webkit-outer-spin-button,
@@ -179,21 +201,55 @@ nav .navBtn:disabled {
 
 .settingsModal form .multipleInputContainer label {
   padding: 10px;
-  border: solid 2px #395886;
+  border: solid 2px #b1c9ef;
   border-radius: 10px;
   transition: all 0.3s;
   margin: 10px;
+}
+
+.settingsModal form .photoContainer {
+  width: 100%;
+}
+
+.settingsModal form .photoContainer .profileImg {
+  width: 100%;
 }
 
 .settingsModal .closeIcon {
   float: right;
 }
 
+/*---Settings Page---*/
+
+.displayUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.displayUser .userProfile,
+.displayUser .cardContainer {
+  padding-top: 30px;
+  width: 400px;
+  height: 650px;
+}
+
+.userProfile {
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.displayUser .userProfile .userInfo {
+  align-self: center;
+  margin: 15px;
+}
+
 /*---OnBoarding Page---*/
 
-.onboarding {
+/* .onboarding {
   border-top: solid 1px #b1c9ef;
-}
+} */
 
 .onboarding form {
   display: flex;
@@ -207,13 +263,13 @@ nav .navBtn:disabled {
   width: 35%;
 }
 
-.onboarding form input {
+/* .onboarding form input {
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
   border: solid 2px #395886;
   border-radius: 10px;
-}
+} */
 
 .onboarding form input::-webkit-outer-spin-button,
 .onboarding form input::-webkit-inner-spin-button {
@@ -230,12 +286,26 @@ nav .navBtn:disabled {
   margin-right: 10px;
 }
 
-.onboarding form .multipleInputContainer label {
+/* .onboarding form .multipleInputContainer label {
   padding: 10px;
-  border: solid 2px #395886;
+  border: solid 2px #b1c9ef;
   border-radius: 10px;
   transition: all 0.3s;
   margin: 10px;
+} */
+
+.onboarding form .multipleInputContainer input[type="radio"],
+.onboarding form .multipleInputContainer input[type="checkbox"] {
+  display: none;
+}
+
+.onboarding form .multipleInputContainer input[type="radio"]:checked + label,
+.onboarding
+  form
+  .multipleInputContainer
+  input[type="checkbox"]:checked
+  + label {
+  border: solid 2px #395886;
 }
 
 .onboarding form input[type="number"] {
@@ -325,7 +395,6 @@ nav .navBtn:disabled {
   background-position: center;
 }
 
-/* Style this ok? oK! */
 /*---ChatContainer---*/
 
 .chatContainer {

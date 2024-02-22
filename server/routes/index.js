@@ -142,6 +142,29 @@ router.get("/user", async (req, res) => {
   }
 });
 
+router.put("/updateUser", async (req, res, next) => {
+  try {
+    const formData = req.body.formData;
+    const existingUser = await User.findOne({ userId: formData.userId });
+    const insertedUser = await User.updateOne(
+      { userId: existingUser.userId },
+      {
+        $set: {
+          showGender: formData.showGender,
+          genderInterest: formData.genderInterest,
+          activities: formData.activities,
+          about: formData.about,
+          url: formData.url,
+        },
+      }
+    );
+    res.json(insertedUser);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Error" });
+  }
+});
+
 router.get("/genderedUsers", async (req, res, next) => {
   try {
     const { userGenderInterest, userGenderIdentity } = JSON.parse(
@@ -212,18 +235,15 @@ router.put("/addmatch", async (req, res, next) => {
     const query = { userId: userId };
     const updateDocument = { $push: { matches: { userId: matchedUserId } } };
     const updatematches = await User.updateOne(query, updateDocument);
-    const pipeline = [
-      {
-        $match: {
-          userId: {
-            matchedUserId,
-          },
-        },
-      },
-    ];
 
-    const isMatch = await User.aggregate(pipeline);
-    res.send();
+    const isMatch = await User.exists({
+      userId: matchedUserId,
+      "matches.userId": userId,
+    });
+    if (isMatch) {
+      return res.send(200);
+    }
+    res.send(0);
   } catch (error) {
     console.log(error);
     return res.status(500);

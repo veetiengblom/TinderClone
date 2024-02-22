@@ -1,9 +1,9 @@
 import TinderCard from "react-tinder-card";
 
 const DisplayUser = ({ user }) => {
+  console.log(user.showGender);
   return (
     <div className="displayUser">
-     
       <div className="userProfile">
         <h2>User Profile</h2>
         <div className="userInfo">
@@ -14,7 +14,8 @@ const DisplayUser = ({ user }) => {
           {user.dobMonth}/{user.dobYear}
         </div>
         <div className="userInfo">
-          <strong className="infoLabel">Show Gender:</strong> {user.showGender}
+          <strong className="infoLabel">Show Gender In Profile:</strong>{" "}
+          {user.showGender ? "Yes" : "No"}
         </div>
 
         <div className="userInfo">
@@ -41,7 +42,6 @@ const DisplayUser = ({ user }) => {
           ></div>
         </TinderCard>
       </div>
-
     </div>
   );
 };

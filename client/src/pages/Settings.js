@@ -19,12 +19,12 @@ const Settings = () => {
     <>
       {user && (
         <div className="settings">
-          <div>
+          {showModal && <SettingsModal setShowModal={setShowModal} />}
+          {!showModal && <DisplayUser user={user} />}
+          <div className="updateProfileBtn">
             <button className="primaryBtn" onClick={handleClick}>
               Update profile
             </button>
-            {showModal && <SettingsModal setShowModal={setShowModal} />}
-            {!showModal && <DisplayUser user={user} />}
           </div>
         </div>
       )}
