@@ -114,13 +114,72 @@ const SettingsModal = ({ setShowModal }) => {
           {/* Radio buttons for gender interest */}
           <label>Show Me</label>
           <div className="multipleInputContainer">
-            {/* ... (Radio buttons for different gender interests) */}
+            <input
+              id="manGenderInterest"
+              type="radio"
+              name="genderInterest"
+              value={"man"}
+              onChange={handleChange}
+              checked={formData.genderInterest === "man"}
+            ></input>
+            <label htmlFor="manGenderInterest">Man</label>
+            <input
+              id="womanGenderInterest"
+              type="radio"
+              name="genderInterest"
+              value={"woman"}
+              onChange={handleChange}
+              checked={formData.genderInterest === "woman"}
+            ></input>
+            <label htmlFor="womanGenderInterest">Woman</label>
+            <input
+              id="elseGenderInterest"
+              type="radio"
+              name="genderInterest"
+              value={"else"}
+              onChange={handleChange}
+              checked={formData.genderInterest === "else"}
+            ></input>
+            <label htmlFor="elseGenderInterest">Else</label>
+            <input
+              id="everyoneGenderInterest"
+              type="radio"
+              name="genderInterest"
+              value={"everyone"}
+              onChange={handleChange}
+              checked={formData.genderInterest === "everyone"}
+            ></input>
+            <label htmlFor="everyoneGenderInterest">Everyone</label>
           </div>
 
           {/* Checkbox activities */}
           <label htmlFor="activities">Choose activities you like</label>
           <div className="multipleInputContainer">
-            {/* ... (Checkbox inputs for different activities) */}
+            <input
+              type="checkbox"
+              id="activityCheckboxSports"
+              name="Sports"
+              value="Sports"
+              onChange={handleOnChange}
+            />
+            <label htmlFor={"activityCheckboxSports"}>Sports</label>
+
+            <input
+              type="checkbox"
+              id="activityCheckboxMusic"
+              name="Music"
+              value="Music"
+              onChange={handleOnChange}
+            />
+            <label htmlFor={"activityCheckboxMusic"}>Music</label>
+            <input
+              type="checkbox"
+              id="activityCheckboxAdventure"
+              name="Adventure"
+              value="Adventure"
+              onChange={handleOnChange}
+            />
+            <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
           </div>
 
           {/* Input for 'About Me' section */}

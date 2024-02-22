@@ -402,6 +402,11 @@ nav .navBtn:disabled {
   background-size: cover;
   background-position: center;
 }
+.card h3 {
+  color: black;
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
+    1px 1px 0 white;
+}
 
 /*---ChatContainer---*/
 

@@ -64,7 +64,9 @@ const Matches = () => {
 
   // useEffect hook to fetch activities when showActivity changes
   useEffect(() => {
-    getActivities();
+    if (matchedActivities) {
+      getActivities();
+    }
   }, [showActivity]);
 
   // Function to add matched activities between the users

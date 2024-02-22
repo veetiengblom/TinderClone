@@ -40,7 +40,7 @@ const OnBoarding = () => {
         },
         body: JSON.stringify({ formData }),
       });
-      
+
       // Parsing the response data
       const data = await response.json();
 
@@ -164,7 +164,7 @@ const OnBoarding = () => {
 
             {/* Input fields for gender identity */}
             <label>Gender</label>
-            <div className="multipleInputContainer">
+            <div className="multipleInputContainer" required={true}>
               <input
                 id="manGenderIdentity"
                 type="radio"
