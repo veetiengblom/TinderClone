@@ -6,11 +6,11 @@ import { useCookies } from "react-cookie";
 import TinderCard from "react-tinder-card";
 import { useUser } from "../hooks/useUser";
 
-const Matches = ({}) => {
+const Matches = () => {
   const [showActivity, setShowActivity] = useState(false);
   const [clickedUser, setClickedUser] = useState(null);
-  const [lastDirection, setLastDirection] = useState();
-  const [activities, setActivities] = useState();
+  const [lastDirection, setLastDirection] = useState(undefined);
+  const [activities, setActivities] = useState(undefined);
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
   const userId = cookies.UserId;
@@ -32,7 +32,12 @@ const Matches = ({}) => {
       });
 
       const data = await response.json();
-      setActivities(data[0].activity);
+      console.log("data", data);
+      if (data[0]) {
+        setActivities(data[0].activity);
+        return;
+      }
+      setActivities(undefined);
     } catch (error) {
       console.log(error);
     }
@@ -154,7 +159,7 @@ const Matches = ({}) => {
               <h3>{clickedUser.about}</h3>
             </div>
           )}
-          {showActivity && (
+          {showActivity && activities && (
             <div className="activityContainer">
               <div className="cardContainer">
                 {activities?.map((activity) => (
@@ -175,6 +180,11 @@ const Matches = ({}) => {
                   </TinderCard>
                 ))}
               </div>
+            </div>
+          )}
+          {showActivity && !activities && (
+            <div className="emptyMessageContainer">
+              <h1>No Activities To Show</h1>
             </div>
           )}
         </div>

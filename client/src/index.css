@@ -230,7 +230,8 @@ nav .navBtn:disabled {
 .displayUser .userProfile,
 .displayUser .cardContainer {
   padding-top: 30px;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: 650px;
 }
 
@@ -372,17 +373,20 @@ nav .navBtn:disabled {
 
 .matches .activityContainer,
 .matches .swipeContainer,
-.matches .userContainer {
+.matches .userContainer,
+.emptyMessageContainer {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
+
 .matches .cardContainer {
   width: 400px;
   height: 650px;
+  margin-top: 30px;
 }
 
 .card {
@@ -464,7 +468,6 @@ nav .navBtn:disabled {
   border-radius: 25px;
   overflow: hidden;
   position: relative;
-  width: 320px;
   max-width: 100%;
   height: 60vh;
   overflow-y: auto;
@@ -557,12 +560,46 @@ nav .navBtn:disabled {
     align-items: flex-start;
   }
   .onboarding form .multipleInputContainer label {
-    padding: 5px 10px;
+    padding: 5px 5px;
     margin: 3px;
+  }
+
+  /*---Settings---*/
+
+  .displayUser .userProfile {
+    width: 80%;
+  }
+  .displayUser .cardContainer {
+    margin-right: 10px;
   }
 }
 
 @media (max-width: 750px) {
+  /*---Settings---*/
+
+  .displayUser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .displayUser .userProfile {
+    margin-top: 0;
+    height: fit-content;
+  }
+
+  .displayUser .cardContainer {
+    margin-bottom: 20px;
+  }
+  .displayUser .cardContainer {
+    margin-bottom: 20px;
+  }
+
+  .settings .updateProfileBtn {
+    margin-bottom: 20px;
+  }
+
   /*---Matches---*/
 
   .matches {
@@ -588,15 +625,13 @@ nav .navBtn:disabled {
     width: 100%;
   }
 
-  .matches .chatContainer .matchesDisplay .chatDisplay {
-    align-items: center;
-    justify-content: center;
+  .chatDisplay {
+    max-width: 80%;
   }
 
   .matches .cardContainer {
-    margin-top: 25px;
-    width: 60%;
-    height: 60%;
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
 }
 
