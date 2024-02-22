@@ -247,10 +247,9 @@ nav .navBtn:disabled {
 
 /*---OnBoarding Page---*/
 
-/* .onboarding {
+.onboarding {
   border-top: solid 1px #b1c9ef;
-} */
-
+}
 .onboarding form {
   display: flex;
   justify-content: center;
@@ -263,13 +262,13 @@ nav .navBtn:disabled {
   width: 35%;
 }
 
-/* .onboarding form input {
+.onboarding form input {
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
   border: solid 2px #395886;
   border-radius: 10px;
-} */
+}
 
 .onboarding form input::-webkit-outer-spin-button,
 .onboarding form input::-webkit-inner-spin-button {
@@ -286,13 +285,13 @@ nav .navBtn:disabled {
   margin-right: 10px;
 }
 
-/* .onboarding form .multipleInputContainer label {
+.onboarding form .multipleInputContainer label {
   padding: 10px;
   border: solid 2px #b1c9ef;
   border-radius: 10px;
   transition: all 0.3s;
   margin: 10px;
-} */
+}
 
 .onboarding form .multipleInputContainer input[type="radio"],
 .onboarding form .multipleInputContainer input[type="checkbox"] {
@@ -370,8 +369,9 @@ nav .navBtn:disabled {
   display: flex;
   justify-content: center;
 }
-.matches .swipeContainer,
+
 .matches .activityContainer,
+.matches .swipeContainer,
 .matches .userContainer {
   width: 100%;
   display: flex;
@@ -541,4 +541,97 @@ nav .navBtn:disabled {
 .chatMessageContainer#category .message {
   align-self: center;
   padding: 15px 20px 15px 20px;
+}
+
+/*---Media queries---*/
+
+@media (max-width: 950px) {
+  /*---Onboarding---*/
+
+  .onboarding form .multipleInputContainer#birthday input {
+    margin-right: 3px;
+    font-size: 15px;
+    border: solid 2px #395886;
+    border-radius: 10px;
+    padding: 8px;
+    align-items: flex-start;
+  }
+  .onboarding form .multipleInputContainer label {
+    padding: 5px 10px;
+    margin: 3px;
+  }
+}
+
+@media (max-width: 750px) {
+  /*---Matches---*/
+
+  .matches {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .matches .activityContainer,
+  .matches .swipeContainer,
+  .matches .userContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .matches .chatContainer {
+    width: 100%;
+  }
+  .matches .chatContainer .matchesDisplay {
+    width: 100%;
+  }
+
+  .matches .chatContainer .matchesDisplay .chatDisplay {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .matches .cardContainer {
+    margin-top: 25px;
+    width: 60%;
+    height: 60%;
+  }
+}
+
+@media (max-width: 600px) {
+  .onboarding form section {
+    width: 80%; /* Adjust the width as needed for smaller screens */
+  }
+
+  .onboarding form section:first-child {
+    margin-right: 0; /* Remove the right margin for the first section */
+  }
+
+  .onboarding form {
+    flex-direction: column;
+    align-items: center;
+  }
+  .onboarding form .multipleInputContainer#birthday {
+    flex-direction: row;
+    align-items: center;
+  }
+  .onboarding form .multipleInputContainer#birthday input {
+    padding: 15px 30px;
+    margin: 5px;
+  }
+
+  /* .onboarding form input,
+  .onboarding form .multipleInputContainer input[type="number"] {
+    width: 100%;
+  } */
+
+  .onboarding form .multipleInputContainer {
+    flex-direction: column;
+  }
+
+  .onboarding form .multipleInputContainer label {
+    margin: 10px 0;
+  }
 }

@@ -5,8 +5,6 @@ import Settings from "./pages/Settings";
 import DashboardHeader from "./components/DashboardHeader";
 import Matches from "./pages/Matches";
 import { useCookies } from "react-cookie";
-import M from "materialize-css";
-import "materialize-css/dist/css/materialize.min.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

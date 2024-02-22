@@ -101,7 +101,7 @@ const OnBoarding = () => {
               onChange={handleChange}
             ></input>
             <label htmlFor="dobDay">Birthday</label>
-            <div className="multipleInputContainer">
+            <div className="multipleInputContainer" id="birthday">
               <input
                 id="dobDay"
                 type="number"
@@ -248,7 +248,6 @@ const OnBoarding = () => {
               value={formData.about}
               onChange={handleChange}
             ></input>
-            <input type="submit"></input>
           </section>
           <section>
             <label htmlFor="about">Profile Picture</label>
@@ -268,6 +267,7 @@ const OnBoarding = () => {
                 ></img>
               )}
             </div>
+            <input type="submit"></input>
           </section>
         </form>
       </div>
