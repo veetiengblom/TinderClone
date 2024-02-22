@@ -1,27 +1,31 @@
+// Import necessary modules and components
 import ChatContainer from "../components/ChatContainer";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-
-//Used React-tinder-card element from 3DJakob
 import TinderCard from "react-tinder-card";
 import { useUser } from "../hooks/useUser";
 
+// Matches component
 const Matches = () => {
+  // State variables for controlling various aspects of the component
   const [showActivity, setShowActivity] = useState(false);
   const [clickedUser, setClickedUser] = useState(null);
   const [lastDirection, setLastDirection] = useState(undefined);
   const [activities, setActivities] = useState(undefined);
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
+  // Fetch user details using the useUser hook
   const userId = cookies.UserId;
   const { user } = useUser(userId);
 
+  // Filter matched activities between the current user and the clicked user
   const userActivities = user?.activities;
   const clickedUserActivities = clickedUser?.activities;
   const matchedActivities = userActivities?.filter((x) =>
     clickedUserActivities?.includes(x)
   );
 
+  // Fetch activities based on matched activities
   const getActivities = async () => {
     try {
       const response = await fetch("/index/getActivities", {
@@ -30,9 +34,7 @@ const Matches = () => {
           params: JSON.stringify(matchedActivities),
         },
       });
-
       const data = await response.json();
-      console.log("data", data);
       if (data[0]) {
         setActivities(data[0].activity);
         return;
@@ -43,6 +45,7 @@ const Matches = () => {
     }
   };
 
+  // Fetch matched activities between the current user and clicked user
   const getMachedActivities = async (userId, clickedUserId) => {
     try {
       const response = await fetch("/index/getMachedActivities", {
@@ -59,10 +62,12 @@ const Matches = () => {
     }
   };
 
+  // useEffect hook to fetch activities when showActivity changes
   useEffect(() => {
     getActivities();
   }, [showActivity]);
 
+  // Function to add matched activities between the users
   const addActivities = async (userId, swipedActivity, clickedUserId) => {
     try {
       const response = await fetch("/index/addActivity", {
@@ -77,6 +82,7 @@ const Matches = () => {
     }
   };
 
+  // Function to add a message when users swipe right
   const addMessage = async (userId, clickedUserId, text) => {
     const message = {
       fromUserId: userId,
@@ -98,6 +104,7 @@ const Matches = () => {
     }
   };
 
+  // Function to handle the swipe action
   const swiped = async (direction, swipedActivity) => {
     if (direction === "right") {
       await addActivities(user.userId, swipedActivity, clickedUser.userId);
@@ -111,14 +118,17 @@ const Matches = () => {
     setLastDirection(direction);
   };
 
+  // Function called when a TinderCard goes out of frame
   const outOfFrame = (name) => {
     console.log(name, "left the screen!");
   };
 
+  // JSX structure of the Matches component
   return (
     <>
       {user && (
         <div className="matches">
+          {/* Render the ChatContainer component */}
           <ChatContainer
             user={user}
             showActivity={showActivity}
@@ -127,6 +137,7 @@ const Matches = () => {
             setClickedUser={setClickedUser}
           />
           {!clickedUser && !showActivity && (
+            // Render TinderCard for the current user
             <div className="userContainer">
               <div className="cardContainer">
                 <TinderCard className="swipe" key={user.firstName}>
@@ -143,6 +154,7 @@ const Matches = () => {
             </div>
           )}
           {clickedUser && !showActivity && (
+            // Render TinderCard for the clicked user
             <div className="userContainer">
               <div className="cardContainer">
                 <TinderCard className="swipe" key={clickedUser.firstName}>
@@ -160,6 +172,7 @@ const Matches = () => {
             </div>
           )}
           {showActivity && activities && (
+            // Render TinderCards for matched activities
             <div className="activityContainer">
               <div className="cardContainer">
                 {activities?.map((activity) => (
@@ -183,6 +196,7 @@ const Matches = () => {
             </div>
           )}
           {showActivity && !activities && (
+            // Render a message if there are no activities to show
             <div className="emptyMessageContainer">
               <h1>No Activities To Show</h1>
             </div>
@@ -193,4 +207,5 @@ const Matches = () => {
   );
 };
 
+// Export the Matches component
 export default Matches;

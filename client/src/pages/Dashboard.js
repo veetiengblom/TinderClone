@@ -1,26 +1,32 @@
+// Import necessary modules from React and external libraries
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import TinderCard from "react-tinder-card"; // Import the TinderCard component
+import { useUser } from "../hooks/useUser"; // Import the custom useUser hook
+import { useGenderedUsers } from "../hooks/useGenderedUsers"; // Import the custom useGenderedUsers hook
 
-//Used React-tinder-card element from 3DJakob
-import TinderCard from "react-tinder-card";
-import { useUser } from "../hooks/useUser";
-import { useGenderedUsers } from "../hooks/useGenderedUsers";
-
+// Dashboard component
 const Dashboard = () => {
+  // State variables for tracking swipes and user iteration
   const [lastDirection, setLastDirection] = useState();
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
   const [userIteration, setUserIteration] = useState(0);
 
+  // Extract userId and user data using the useUser hook
   const userId = cookies.UserId;
   const { user } = useUser(userId, userIteration);
+
+  // Extract genderedUsers data using the useGenderedUsers hook
   const genderedUsers = useGenderedUsers(user);
 
+  // Navigate hook for programmatic navigation
   let navigate = useNavigate();
 
+  // Custom toast message to display when a match occurs
   const customToast = (name) => {
     const handleClick = (value) => {
       if (value) {
@@ -36,8 +42,10 @@ const Dashboard = () => {
     );
   };
 
+  // Function to display a toast message for a match
   const toastToChat = (name) => toast.info(customToast(name));
 
+  // Function to update matches in the database
   const updateMatches = async (matchedUserId, name) => {
     try {
       const response = await fetch("/index/addmatch", {
@@ -47,37 +55,41 @@ const Dashboard = () => {
         },
         body: JSON.stringify({ userId, matchedUserId }),
       });
+
+      // Update the user iteration to trigger a re-fetch of user data
       setUserIteration((prevIteration) => prevIteration + 1);
 
       if (response.status === 200) {
-        console.log("haloo");
-        toastToChat(name);
+        toastToChat(name); // Display toast message for a match
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  // Function called when a card is swiped
   const swiped = (direction, swipedUserId, name) => {
     if (direction === "right") {
-      updateMatches(swipedUserId, name);
+      updateMatches(swipedUserId, name); // Update matches for a right swipe
     }
 
-    setLastDirection(direction);
+    setLastDirection(direction); // Set the last swipe direction
   };
 
+  // Function called when a card goes out of the swipe container
   const outOfFrame = (name) => {
     console.log(name, "left the screen!");
   };
 
-  const matchedUsersIds = user?.matches
-    .map(({ userId }) => userId)
-    .concat(userId);
+  // Get an array of matched users' IDs
+  const matchedUsersIds = user?.matches.map(({ userId }) => userId).concat(userId);
 
+  // Filter genderedUsers to exclude those already matched
   const filteredGenderUsers = genderedUsers?.filter(
     (genderedUsers) => !matchedUsersIds.includes(genderedUsers.userId)
   );
 
+  // JSX structure of the Dashboard component
   return (
     <>
       <ToastContainer position="top-left" closeButton />
@@ -86,6 +98,7 @@ const Dashboard = () => {
           <div className="swipeContainer">
             <div className="cardContainer">
               {filteredGenderUsers?.length > 0 ? (
+                // Map through filteredGenderUsers to create TinderCard components
                 filteredGenderUsers.map((genderedUsers) => (
                   <TinderCard
                     className="swipe"
@@ -119,4 +132,5 @@ const Dashboard = () => {
   );
 };
 
+// Export the Dashboard component
 export default Dashboard;
