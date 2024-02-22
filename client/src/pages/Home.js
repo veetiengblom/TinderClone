@@ -22,17 +22,12 @@ const Home = () => {
         setSignUp={setSignUp}
       />
       <div className="home">
-        <h1 className="primaryTitle">Swipe Right</h1>
+        <h1 className="primaryTitle">Activity Swipe</h1>
         <button className="primaryBtn" onClick={handleClick}>
           {authToken ? "signout" : "Create Account"}
         </button>
 
-        {showModal && (
-          <AuthModal
-            setShowModal={setShowModal}
-            signUp={signUp}
-          />
-        )}
+        {showModal && <AuthModal setShowModal={setShowModal} signUp={signUp} />}
       </div>
     </div>
   );

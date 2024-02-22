@@ -246,6 +246,10 @@ nav .navBtn:disabled {
   margin: 15px;
 }
 
+.settings .updateProfileBtn {
+  margin-bottom: 20px;
+}
+
 /*---OnBoarding Page---*/
 
 .onboarding {
@@ -450,7 +454,7 @@ nav .navBtn:disabled {
 .imgContainer {
   height: 30px;
   width: 30px;
-  border-radius: 15px;
+  border-radius: 50%;
   overflow: hidden;
   margin: 10px;
 }
@@ -593,10 +597,6 @@ nav .navBtn:disabled {
     margin-bottom: 20px;
   }
   .displayUser .cardContainer {
-    margin-bottom: 20px;
-  }
-
-  .settings .updateProfileBtn {
     margin-bottom: 20px;
   }
 
