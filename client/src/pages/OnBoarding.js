@@ -292,7 +292,6 @@ const OnBoarding = () => {
               value={formData.about}
               onChange={handleChange}
             ></input>
-            <input className="onboardingBtn" type="submit"></input>
           </section>
 
           {/* Section for profile picture input */}
@@ -321,6 +320,7 @@ const OnBoarding = () => {
             </div>
 
             {/* Submit button for the registration form */}
+            <input className="onboardingBtn" type="submit"></input>
           </section>
         </form>
       </div>

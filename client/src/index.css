@@ -92,6 +92,8 @@ nav .navBtn:disabled {
   margin-top: 30vh;
 }
 
+/*---Card---*/
+
 /*---Auth Modal---*/
 
 .authModal {
@@ -150,12 +152,12 @@ nav .navBtn:disabled {
 .settingsModal form section {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  width: 35%;
+  padding: 10px 20px 0px 20px;
 }
 
 .settingsModal form section label {
   align-items: center;
+  width: 100%;
 }
 
 .settingsModal form .multipleInputContainer {
@@ -183,12 +185,20 @@ nav .navBtn:disabled {
   margin: 0;
 }
 
-.settingsModal form .multipleInputContainer {
-  display: flex;
-  flex-direction: row;
+.settingsModal form section input {
+  padding: 15px 30px;
+  margin: 10px 0;
+  font-size: 15px;
+  border: solid 2px #b1c9ef;
+  border-radius: 10px;
 }
 
-.settingsModal form input {
+.settingsModal form section input#about {
+  width: 100%;
+}
+
+.settingsModal form input.secondaryBtn {
+  align-self: center;
   padding: 15px 30px;
   margin: 10px 0;
   font-size: 15px;
@@ -203,6 +213,7 @@ nav .navBtn:disabled {
   transition: all 0.3s;
   margin: 10px 5px 10px 0px;
 }
+
 .settingsModal form section input#showGender {
   transform: scale(1.5);
   margin-left: 10px;
@@ -218,7 +229,7 @@ nav .navBtn:disabled {
 }
 
 .settingsModal form .photoContainer .profileImg {
-  width: 100%;
+  max-height: 400px;
 }
 
 .settingsModal .closeIcon {
@@ -228,7 +239,7 @@ nav .navBtn:disabled {
 /*---Settings Page---*/
 .settings {
   width: 100vw;
-  height: 100vh;
+  height: 110vh;
   background: linear-gradient(to top, #f0f3fa 0%, #395886 100%);
 }
 .displayUser {
@@ -264,10 +275,9 @@ nav .navBtn:disabled {
 
 .onboarding {
   width: 100vw;
-  height: 100vh;
-  position: fixed;
+  height: 90vh;
   border-top: solid 1px #b1c9ef;
-  background: linear-gradient(to top, #f0f3fa 0%, #395886 100%);
+  background: linear-gradient(to top, #7c7e84 0%, #395886 100%);
 }
 .onboarding form {
   display: flex;
@@ -301,8 +311,9 @@ nav .navBtn:disabled {
   margin-bottom: 5px;
 }
 
-.onboarding form .multipleInputContainer input {
+.onboarding form .multipleInputContainer#birthday input {
   margin-right: 10px;
+  width: 100%;
 }
 
 .onboarding form section .title {
@@ -319,8 +330,10 @@ nav .navBtn:disabled {
   padding: 10px;
   border: solid 2px #b1c9ef;
   border-radius: 10px;
+  background-color: #f0f3fa;
   transition: all 0.3s;
-  margin: 20px;
+  margin: 5px;
+  width: 100%;
 }
 
 .onboarding form .multipleInputContainer input[type="radio"],
@@ -335,6 +348,7 @@ nav .navBtn:disabled {
   input[type="checkbox"]:checked
   + label {
   border: solid 2px #395886;
+  background-color: #638ecb;
 }
 
 .onboarding form input[type="number"] {
@@ -346,7 +360,8 @@ nav .navBtn:disabled {
 }
 
 .onboarding form .photoContainer .profileImg {
-  width: 100%;
+  max-width: 100%;
+  max-height: 400px;
 }
 
 /*---Dashboard---*/
@@ -391,7 +406,7 @@ nav .navBtn:disabled {
 }
 
 .card h3 {
-  margin-top: 0;
+  margin-top: 0px;
 }
 
 .dashboard .swipeInfo {
@@ -423,15 +438,6 @@ nav .navBtn:disabled {
   height: 650px;
 }
 
-.card {
-  position: relative;
-  background-color: #fff;
-  width: 400px;
-  height: 650px;
-  border-radius: 20px;
-  background-size: cover;
-  background-position: center;
-}
 .card h3 {
   color: black;
   text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white,
@@ -688,12 +694,15 @@ nav .navBtn:disabled {
 }
 
 @media (max-width: 600px) {
+  .onboarding {
+    height: 100%;
+  }
   .onboarding form section {
-    width: 80%; /* Adjust the width as needed for smaller screens */
+    width: 80%;
   }
 
   .onboarding form section:first-child {
-    margin-right: 0; /* Remove the right margin for the first section */
+    margin-right: 0;
   }
 
   .onboarding form {
@@ -708,11 +717,6 @@ nav .navBtn:disabled {
     padding: 15px 30px;
     margin: 5px;
   }
-
-  /* .onboarding form input,
-  .onboarding form .multipleInputContainer input[type="number"] {
-    width: 100%;
-  } */
 
   .onboarding form .multipleInputContainer {
     flex-direction: column;

@@ -275,7 +275,7 @@ router.put("/addmatch", async (req, res, next) => {
       return res.sendStatus(200);
     }
 
-    res.sendStatus(0);
+    res.sendStatus(404);
   } catch (error) {
     console.log(error);
     return res.status(500);
