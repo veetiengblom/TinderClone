@@ -2,23 +2,15 @@
 import React from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { AppBar, Toolbar, Button } from "@mui/material";
 
 // Functional component DashboardHeader for displaying the header in the dashboard
-const DashboardHeader = ({ setShowMatchPage, setUser }) => {
-  // Hook to manage cookies
+const DashboardHeader = () => {
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
-
-  // Event handler to set the showMatchPage state
-  const handleClick = (value) => {
-    setShowMatchPage(value);
-  };
 
   // React Router hook for navigation
   let navigate = useNavigate();
 
-  // Extract user ID from cookies
   const userId = cookies.UserId;
 
   // Function to handle user logout
@@ -88,5 +80,4 @@ const DashboardHeader = ({ setShowMatchPage, setUser }) => {
   );
 };
 
-// Export the DashboardHeader component as the default export
 export default DashboardHeader;

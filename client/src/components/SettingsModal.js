@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 
 // Functional component SettingsModal for updating user profile settings
 const SettingsModal = ({ setShowModal }) => {
-  // Hook to manage cookies
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
   // State variables for form inputs and activities
@@ -36,14 +35,11 @@ const SettingsModal = ({ setShowModal }) => {
       });
       const data = await response.json();
 
-      // Log data and handle successful update
-      console.log("data", data);
+      // handle unsuccessful/successful update
       if (!response.ok) {
         return console.error("response error", response);
       }
       if (response.status === 200) {
-        console.log("data updated");
-
         setShowModal(false);
         window.location.reload(); // Reload the page after successful update
       }
@@ -92,16 +88,13 @@ const SettingsModal = ({ setShowModal }) => {
   // Render the SettingsModal component
   return (
     <div className="settingsModal">
-      {/* Close icon */}
       <div className="closeIcon" onClick={handleClick}>
         ✖
       </div>
 
-      {/* Form for updating user profile */}
       <h2>Update Profile</h2>
       <form onSubmit={handleSubmit}>
         <section>
-          {/* Checkbox for showing gender on the profile */}
           <label htmlFor="showGender">Show gender on my profile</label>
           <input
             id="showGender"
@@ -110,8 +103,6 @@ const SettingsModal = ({ setShowModal }) => {
             onChange={handleChange}
             checked={formData.showGender}
           ></input>
-
-          {/* Radio buttons for gender interest */}
           <label>Show Me</label>
           <div className="multipleInputContainer">
             <input
@@ -151,8 +142,6 @@ const SettingsModal = ({ setShowModal }) => {
             ></input>
             <label htmlFor="everyoneGenderInterest">Everyone</label>
           </div>
-
-          {/* Checkbox activities */}
           <label htmlFor="activities">Choose activities you like</label>
           <div className="multipleInputContainer">
             <input
@@ -182,7 +171,6 @@ const SettingsModal = ({ setShowModal }) => {
             <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
           </div>
 
-          {/* Input for 'About Me' section */}
           <label htmlFor="about">About Me</label>
           <div className="multipleInputContainer">
             <input
@@ -198,7 +186,6 @@ const SettingsModal = ({ setShowModal }) => {
         </section>
 
         <section>
-          {/* Input for profile picture URL */}
           <label htmlFor="about">Profile Picture</label>
           <input
             type="url"
@@ -208,7 +195,6 @@ const SettingsModal = ({ setShowModal }) => {
             required={true}
           ></input>
 
-          {/* Display preview of the profile picture */}
           <div className="photoContainer">
             {formData.url && (
               <img
@@ -220,12 +206,10 @@ const SettingsModal = ({ setShowModal }) => {
           </div>
         </section>
 
-        {/* Submit button for form */}
         <input className="secondaryBtn" type="submit" />
       </form>
     </div>
   );
 };
 
-// Export the SettingsModal component as the default export
 export default SettingsModal;

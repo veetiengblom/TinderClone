@@ -2,15 +2,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-var cors = require("cors");
-
+require("dotenv").config();
+const uri = process.env.MONGODB_URI;
 var indexRouter = require("./routes/index");
 var mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
 var app = express();
 
-const mongoDB = "mongodb://127.0.0.1:27017/activitydb";
+const mongoDB = uri;
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;

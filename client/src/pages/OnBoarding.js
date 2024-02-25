@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 // OnBoarding component responsible for user registration
 const OnBoarding = () => {
-  // Retrieving user cookies using the useCookies hook
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
   // State to manage form data for user registration
@@ -25,7 +24,6 @@ const OnBoarding = () => {
     matches: [],
   });
 
-  // Hook to navigate between pages
   let navigate = useNavigate();
 
   // Function to handle form submission
@@ -40,12 +38,7 @@ const OnBoarding = () => {
         },
         body: JSON.stringify({ formData }),
       });
-
-      // Parsing the response data
       const data = await response.json();
-
-      // Logging data to the console
-      console.log("data", data);
 
       // Checking for errors in the response
       if (!response.ok) {
@@ -57,7 +50,6 @@ const OnBoarding = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      // Handling errors during the fetch operation
       return console.log(error);
     }
   };
@@ -67,6 +59,7 @@ const OnBoarding = () => {
     // Extracting value and name from the target element
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
     const name = e.target.name;
 
     // Updating form data state using the setFormData function
@@ -99,11 +92,6 @@ const OnBoarding = () => {
       }));
     }
   };
-
-  // Logging activities to the console
-  console.log(formData.activities);
-
-  // Logging formData to the console
   console.log(formData);
 
   // Rendering the OnBoarding component JSX
@@ -119,7 +107,9 @@ const OnBoarding = () => {
         {/* Form for user registration */}
         <form onSubmit={handleSubmit}>
           <section>
-            <label htmlFor="firstName">First Name</label>
+            <label className="title" htmlFor="firstName">
+              First Name
+            </label>
             <input
               id="firstName"
               type="text"
@@ -130,7 +120,9 @@ const OnBoarding = () => {
               onChange={handleChange}
             ></input>
 
-            <label htmlFor="dobDay">Birthday</label>
+            <label className="title" htmlFor="dobDay">
+              Birthday
+            </label>
             {/* Input fields for day, month, and year of birth */}
             <div className="multipleInputContainer" id="birthday">
               <input
@@ -163,7 +155,9 @@ const OnBoarding = () => {
             </div>
 
             {/* Input fields for gender identity */}
-            <label>Gender</label>
+            <label className="title" htmlFor="gender">
+              Gender
+            </label>
             <div className="multipleInputContainer" required={true}>
               <input
                 id="manGenderIdentity"
@@ -197,7 +191,9 @@ const OnBoarding = () => {
             </div>
 
             {/* Input field to show gender on the user's profile */}
-            <label htmlFor="showGender">Show gender on my profile</label>
+            <label className="title" htmlFor="showGender">
+              Show gender on my profile
+            </label>
             <input
               id="showGender"
               type="checkbox"
@@ -205,7 +201,7 @@ const OnBoarding = () => {
               onChange={handleChange}
               checked={formData.showGender}
             ></input>
-            <label>Show Me</label>
+            <label className="title">Show Me</label>
 
             {/* Input fields for gender interest */}
             <div className="multipleInputContainer">
@@ -251,7 +247,9 @@ const OnBoarding = () => {
             </div>
 
             {/* Checkbox input for selecting user activities */}
-            <label htmlFor="activities">Choose activities you like</label>
+            <label className="title" htmlFor="activities">
+              Choose activities you like
+            </label>
             <div className="multipleInputContainer">
               <input
                 type="checkbox"
@@ -282,7 +280,9 @@ const OnBoarding = () => {
             </div>
 
             {/* Input field for user description */}
-            <label htmlFor="about">About Me</label>
+            <label className="title" htmlFor="about">
+              About Me
+            </label>
             <input
               id="about"
               type="text"
@@ -292,12 +292,16 @@ const OnBoarding = () => {
               value={formData.about}
               onChange={handleChange}
             ></input>
+            <input className="onboardingBtn" type="submit"></input>
           </section>
 
           {/* Section for profile picture input */}
           <section>
-            <label htmlFor="about">Profile Picture</label>
+            <label className="title" htmlFor="about">
+              Profile Picture
+            </label>
             <input
+              placeholder="Image url"
               type="url"
               name="url"
               id="url"
@@ -317,7 +321,6 @@ const OnBoarding = () => {
             </div>
 
             {/* Submit button for the registration form */}
-            <input type="submit"></input>
           </section>
         </form>
       </div>

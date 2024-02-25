@@ -9,11 +9,8 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const user = require("../models/user");
 require("dotenv").config();
 var router = express.Router();
-
-/* GET home page. */
 
 // Route for user registration
 router.post("/register", async (req, res, next) => {
@@ -27,15 +24,14 @@ router.post("/register", async (req, res, next) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(403).json({ email: "email already in use" });
+      return res.status(403).json({ error: "email already in use" });
     } else {
       const generatedUserId = uuidv4();
 
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-
       const lowerCaseEmail = email.toLowerCase();
-      
+
       // Creating a new user with hashed password and lowercased email
       await User.create({
         userId: generatedUserId,
@@ -57,7 +53,6 @@ router.post("/register", async (req, res, next) => {
         },
         (err, token) => {
           if (err) throw err;
-          console.log("Token!", token);
           return res.status(201).json({
             token: token,
             userId: generatedUserId,
@@ -80,7 +75,10 @@ router.post("/login", async (req, res, next) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const correctPassword = await bcrypt.compare(password, existingUser.password);
+    const correctPassword = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
     const id = existingUser.userId;
 
     if (existingUser && correctPassword) {
@@ -188,12 +186,15 @@ router.put("/updateUser", async (req, res, next) => {
 // Route to get gendered users
 router.get("/genderedUsers", async (req, res, next) => {
   try {
-    const { userGenderInterest, userGenderIdentity } = JSON.parse(req.headers.params);
+    const { userGenderInterest, userGenderIdentity } = JSON.parse(
+      req.headers.params
+    );
 
     // Querying users based on gender interest
-    const users = userGenderInterest === "everyone"
-      ? await User.find()
-      : await User.find({ genderIdentity: userGenderInterest });
+    const users =
+      userGenderInterest === "everyone"
+        ? await User.find()
+        : await User.find({ genderIdentity: userGenderInterest });
 
     // Filtering users based on gender identity
     const filteredUsers = users.filter(
@@ -271,10 +272,10 @@ router.put("/addmatch", async (req, res, next) => {
     });
 
     if (isMatch) {
-      return res.send(200);
+      return res.sendStatus(200);
     }
 
-    res.send(0);
+    res.sendStatus(0);
   } catch (error) {
     console.log(error);
     return res.status(500);

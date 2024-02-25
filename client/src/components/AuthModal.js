@@ -48,6 +48,8 @@ const AuthModal = ({ setShowModal, signUp }) => {
       // Parse the response JSON
       const data = await response.json();
 
+      console.log("data", data);
+
       // Handle errors from the server
       if (!response.ok) {
         setError(data.error);

@@ -7,14 +7,12 @@ import { useUser } from "../hooks/useUser";
 
 // Matches component
 const Matches = () => {
-  // State variables for controlling various aspects of the component
   const [showActivity, setShowActivity] = useState(false);
   const [clickedUser, setClickedUser] = useState(null);
   const [lastDirection, setLastDirection] = useState(undefined);
   const [activities, setActivities] = useState(undefined);
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
-  // Fetch user details using the useUser hook
   const userId = cookies.UserId;
   const { user } = useUser(userId);
 
@@ -130,7 +128,6 @@ const Matches = () => {
     <>
       {user && (
         <div className="matches">
-          {/* Render the ChatContainer component */}
           <ChatContainer
             user={user}
             showActivity={showActivity}
@@ -209,5 +206,4 @@ const Matches = () => {
   );
 };
 
-// Export the Matches component
 export default Matches;

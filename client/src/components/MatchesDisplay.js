@@ -4,13 +4,9 @@ import { useCookies } from "react-cookie";
 
 // Functional component MatchesDisplay for rendering matched user profiles
 const MatchesDisplay = ({ matches, setClickedUser }) => {
-  // State variable to store matched user profiles
   const [matchedProfiles, setMatchesProfiles] = useState(null);
-
-  // Hook to manage cookies
   const [cookies, setCookie, removeCookies] = useCookies(["user"]);
 
-  // Extract user ID from cookies
   const userId = cookies.UserId;
 
   // Extract user IDs from the provided matches
@@ -47,7 +43,6 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
           className="matchCard"
           onClick={() => setClickedUser(match)}
         >
-          {/* Display the user's profile image */}
           <div className="imgContainer">
             <img
               className="profileImg"
@@ -55,7 +50,6 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
               alt={match?.firstName + "profile"}
             ></img>
           </div>
-          {/* Display the user's first name */}
           <h3>{match?.firstName}</h3>
         </div>
       ))}
@@ -63,5 +57,4 @@ const MatchesDisplay = ({ matches, setClickedUser }) => {
   );
 };
 
-// Export the MatchesDisplay component as the default export
 export default MatchesDisplay;

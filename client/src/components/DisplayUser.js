@@ -6,11 +6,8 @@ const DisplayUser = ({ user }) => {
   // Render the DisplayUser component
   return (
     <div className="displayUser">
-      {/* User profile information */}
       <div className="userProfile">
         <h2>User Profile</h2>
-
-        {/* Display user information */}
         <div className="userInfo">
           <strong className="infoLabel">First Name:</strong> {user.firstName}
         </div>
@@ -35,9 +32,7 @@ const DisplayUser = ({ user }) => {
         </div>
       </div>
 
-      {/* Container for TinderCard swipe functionality */}
       <div className="cardContainer">
-        {/* TinderCard component with user's image */}
         <TinderCard className="swipe" key={user.firstName}>
           <div
             className="card"
@@ -51,5 +46,4 @@ const DisplayUser = ({ user }) => {
   );
 };
 
-// Export the DisplayUser component as the default export
 export default DisplayUser;

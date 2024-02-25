@@ -220,7 +220,11 @@ nav .navBtn:disabled {
 }
 
 /*---Settings Page---*/
-
+.settings {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to top, #f0f3fa 0%, #395886 100%);
+}
 .displayUser {
   display: flex;
   justify-content: center;
@@ -253,7 +257,11 @@ nav .navBtn:disabled {
 /*---OnBoarding Page---*/
 
 .onboarding {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   border-top: solid 1px #b1c9ef;
+  background: linear-gradient(to top, #f0f3fa 0%, #395886 100%);
 }
 .onboarding form {
   display: flex;
@@ -284,10 +292,21 @@ nav .navBtn:disabled {
 .onboarding form .multipleInputContainer {
   display: flex;
   flex-direction: row;
+  margin-bottom: 5px;
 }
 
 .onboarding form .multipleInputContainer input {
   margin-right: 10px;
+}
+
+.onboarding form section .title {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.onboarding form section #showGender {
+  transform: scale(1.5);
+  margin-left: 10px;
 }
 
 .onboarding form .multipleInputContainer label {
@@ -295,7 +314,7 @@ nav .navBtn:disabled {
   border: solid 2px #b1c9ef;
   border-radius: 10px;
   transition: all 0.3s;
-  margin: 10px;
+  margin: 20px;
 }
 
 .onboarding form .multipleInputContainer input[type="radio"],
@@ -327,6 +346,10 @@ nav .navBtn:disabled {
 /*---Dashboard---*/
 
 .dashboard {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background: linear-gradient(to top, #f0f3fa 0%, #395886 100%);
   display: flex;
   justify-content: center;
 }
@@ -371,6 +394,8 @@ nav .navBtn:disabled {
 
 /*---Matches---*/
 .matches {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
 }
@@ -390,7 +415,6 @@ nav .navBtn:disabled {
 .matches .cardContainer {
   width: 400px;
   height: 650px;
-  margin-top: 30px;
 }
 
 .card {
@@ -504,7 +528,7 @@ nav .navBtn:disabled {
   z-index: 2;
 }
 
-.chatMessageContainer#reciever .profileImg {
+.chatMessageContainer#receiver .profileImg {
   align-self: flex-start;
   object-fit: cover;
   position: absolute;
@@ -530,7 +554,7 @@ nav .navBtn:disabled {
   margin-bottom: 20px;
 }
 
-.chatMessageContainer#reciever .timestamp {
+.chatMessageContainer#receiver .timestamp {
   align-self: flex-start;
   text-align: right;
   font-size: 12px;
@@ -544,7 +568,7 @@ nav .navBtn:disabled {
   margin: 0;
 }
 
-.chatMessageContainer#reciever .message {
+.chatMessageContainer#receiver .message {
   align-self: flex-start;
   text-align: left;
   padding: 15px 20px 15px 70px;

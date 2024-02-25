@@ -5,11 +5,9 @@ import { useState } from "react";
 
 // Home component
 const Home = () => {
-  // State variables for controlling the visibility of the modal and sign-up state
   const [showModal, setShowModal] = useState(false);
   const [signUp, setSignUp] = useState(true);
 
-  // Dummy authentication token
   const authToken = false;
 
   // Event handler for button click to show the modal
@@ -21,9 +19,7 @@ const Home = () => {
   // JSX structure of the Home component
   return (
     <div className="overlay">
-      {/* Render the Nav component with required props */}
       <Nav
-        minimal={false}
         setShowModal={setShowModal}
         showModal={showModal}
         setSignUp={setSignUp}
@@ -42,5 +38,4 @@ const Home = () => {
   );
 };
 
-// Export the Home component
 export default Home;

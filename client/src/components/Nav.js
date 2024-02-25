@@ -15,13 +15,9 @@ const Nav = ({ minimal, setShowModal, showModal, setSignUp }) => {
   // Render the Nav component
   return (
     <nav>
-      {/* Logo container */}
       <div className="logo-container">
-        {/* Display the logo image */}
         <img className="logo" src={logo} alt="Logo" />
       </div>
-
-      {/* Render login button if not authenticated and not in minimal mode */}
       {!authToken && !minimal && (
         <button className="navBtn" onClick={handleClick} disabled={showModal}>
           Log in
