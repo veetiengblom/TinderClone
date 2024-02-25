@@ -95,7 +95,7 @@ const SettingsModal = ({ setShowModal }) => {
       <h2>Update Profile</h2>
       <form onSubmit={handleSubmit}>
         <section>
-          <label htmlFor="showGender">Show gender on my profile</label>
+          <label className="title" htmlFor="showGender">Show gender on my profile</label>
           <input
             id="showGender"
             type="checkbox"
@@ -103,7 +103,7 @@ const SettingsModal = ({ setShowModal }) => {
             onChange={handleChange}
             checked={formData.showGender}
           ></input>
-          <label>Show Me</label>
+          <label className="title" >Show Me</label>
           <div className="multipleInputContainer">
             <input
               id="manGenderInterest"
@@ -142,7 +142,7 @@ const SettingsModal = ({ setShowModal }) => {
             ></input>
             <label htmlFor="everyoneGenderInterest">Everyone</label>
           </div>
-          <label htmlFor="activities">Choose activities you like</label>
+          <label className="title">Choose activities you like</label>
           <div className="multipleInputContainer">
             <input
               type="checkbox"
@@ -171,7 +171,7 @@ const SettingsModal = ({ setShowModal }) => {
             <label htmlFor={"activityCheckboxAdventure"}>Adventure</label>
           </div>
 
-          <label htmlFor="about">About Me</label>
+          <label className="title" >About Me</label>
           <div className="multipleInputContainer">
             <input
               id="about"
@@ -186,8 +186,9 @@ const SettingsModal = ({ setShowModal }) => {
         </section>
 
         <section>
-          <label htmlFor="about">Profile Picture</label>
+          <label className="title">Profile Picture</label>
           <input
+            placeholder="Image url"
             type="url"
             name="url"
             id="url"

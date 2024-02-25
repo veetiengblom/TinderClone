@@ -167,13 +167,6 @@ nav .navBtn:disabled {
 .settingsModal form .multipleInputContainer input[type="checkbox"] {
   display: none;
 }
-.settingsModal form input {
-  padding: 15px 30px;
-  margin: 10px 0;
-  font-size: 15px;
-  border: solid 2px #b1c9ef;
-  border-radius: 10px;
-}
 
 .settingsModal form .multipleInputContainer input[type="radio"]:checked + label,
 .settingsModal
@@ -195,8 +188,12 @@ nav .navBtn:disabled {
   flex-direction: row;
 }
 
-.settingsModal form .multipleInputContainer input {
-  margin-right: 10px;
+.settingsModal form input {
+  padding: 15px 30px;
+  margin: 10px 0;
+  font-size: 15px;
+  border: solid 2px #b1c9ef;
+  border-radius: 10px;
 }
 
 .settingsModal form .multipleInputContainer label {
@@ -204,7 +201,16 @@ nav .navBtn:disabled {
   border: solid 2px #b1c9ef;
   border-radius: 10px;
   transition: all 0.3s;
-  margin: 10px;
+  margin: 10px 5px 10px 0px;
+}
+.settingsModal form section input#showGender {
+  transform: scale(1.5);
+  margin-left: 10px;
+}
+
+.settingsModal form label.title {
+  text-align: left;
+  margin-left: 10px;
 }
 
 .settingsModal form .photoContainer {
@@ -250,7 +256,7 @@ nav .navBtn:disabled {
   margin: 15px;
 }
 
-.settings .updateProfileBtn {
+.settings .updateProfileBtn .primaryBtn {
   margin-bottom: 20px;
 }
 
@@ -608,6 +614,11 @@ nav .navBtn:disabled {
 }
 
 @media (max-width: 750px) {
+  .primaryTitle {
+    font-size: 70px;
+    color: #ffff;
+  }
+
   /*---Settings---*/
 
   .displayUser {
@@ -632,6 +643,7 @@ nav .navBtn:disabled {
   /*---Matches---*/
 
   .matches {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -650,17 +662,28 @@ nav .navBtn:disabled {
   .matches .chatContainer {
     width: 100%;
   }
-  .matches .chatContainer .matchesDisplay {
+  /* .matches .chatContainer .matchesDisplay {
+    width: 80%;
+  } */
+  .chatContainer {
+    position: relative;
     width: 100%;
+    max-width: 800px; /* Adjust the max-width based on your preference */
+    margin: 0 auto; /* Center the chatContainer */
   }
 
-  .chatDisplay {
+  .chatDisplay,
+  .matchesDisplay {
     max-width: 80%;
+    margin: 0 auto;
   }
 
   .matches .cardContainer {
     margin-top: 30px;
     margin-bottom: 30px;
+  }
+  .settings {
+    height: 105vh;
   }
 }
 
